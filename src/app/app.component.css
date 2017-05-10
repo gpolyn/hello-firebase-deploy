@@ -21,6 +21,21 @@ md-sidenav {
 }
 
 .content {
-  padding: 12px;
+  padding: 0.75em;
 }
 
+.content button {
+  width: 80%;
+}
+
+.one {
+  background-color: pink;    
+}
+
+.two {
+  background-color: blue;    
+}
+
+.three {
+  background-color: gray;    
+}

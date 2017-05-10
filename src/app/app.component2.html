@@ -1,0 +1,30 @@
+<div fxLayout="column" fxFlex [class.dark-theme]="isDarkTheme">
+
+  <md-toolbar color="primary">
+    <span>Angular Material</span>
+
+    <!-- Filler that pushes the menu button to the end of the toolbar -->
+    <span fxFlex></span>
+
+    <button md-icon-button [mdMenuTriggerFor]="themeMenu">
+      <md-icon>more_vert</md-icon>
+    </button>
+
+  </md-toolbar>
+
+  <md-sidenav-container fxFlex>
+    <div class="content" fxLayout="column" fxLayoutGap="6px" fxFlexFill>
+      <div fxFlex="45" class="one" ></div>
+      <div fxLayoutAlign="space-around center" fxLayout="column" fxFlex="45" class="two"> 
+        <button md-raised-button style="width:80%">days of week</button>
+        <button md-raised-button>days in future</button>
+      </div>
+      <div fxLayoutAlign="space-around center" fxLayout="column" fxFlex="10" class="three"> 
+        <button md-raised-button>add discounts</button>
+      </div>
+		</div>
+  </md-sidenav-container>
+  <md-menu #themeMenu x-position="before">
+    <button md-menu-item (click)="isDarkTheme = !isDarkTheme">Toggle Theme</button>
+  </md-menu>
+</div>
