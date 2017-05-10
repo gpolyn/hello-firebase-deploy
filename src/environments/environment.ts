@@ -3,9 +3,7 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
-import {GOOGLE_MAPS_API_KEY} from './secrets';
-
 export const environment = {
   production: false,
-  google_maps_api_key: GOOGLE_MAPS_API_KEY
+  google_maps_api_key: 'AIzaSyAQ-DQlMCEFnG6VompZdKLyK7l5NjI3ojg'
 };
