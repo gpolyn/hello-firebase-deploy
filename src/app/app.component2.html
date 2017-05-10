@@ -14,7 +14,10 @@
 
   <md-sidenav-container fxFlex>
     <div class="content" fxLayout="column" fxLayoutGap="6px" fxFlexFill>
-      <div fxFlex="45" class="one" ></div>
+      <sebm-google-map fxFlex="45" class="one" [latitude]="lat" [longitude]="lng">
+        <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker></sebm-google-map>
+      
+
       <div fxLayoutAlign="space-around center" fxLayout="column" fxFlex="45" class="two"> 
         <button md-raised-button style="width:80%">days of week</button>
         <button md-raised-button>days in future</button>

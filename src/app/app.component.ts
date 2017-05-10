@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {MdIconRegistry, MdDialog, MdDialogRef} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
 import {DialogComponent} from './dialog/dialog.component';
@@ -8,26 +8,10 @@ import {DialogComponent} from './dialog/dialog.component';
   templateUrl: './app.component2.html',
 	styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-    isDarkTheme = false;
-    users = [
-    {
-      name: 'Lia Lugo',
-      avatar: 'svg-11',
-      details: 'I love cheese, ...',
-      isAdmin: true,
-      isCool: false
-    },
-    {
-      name: 'George Duke',
-      avatar: 'svg-12',
-      details: 'Zombie ipsum ...',
-      isAdmin: false,
-      isCool: true
-    }
-  ];
-
-  selectedUser = this.users[0];
+export class AppComponent implements OnInit {
+  lat: number = 51.678418;
+  lng: number = 7.809007;
+  isDarkTheme = false;
 
 	constructor(iconRegistry: MdIconRegistry, sanitizer: DomSanitizer, private dialog: MdDialog) {
     // To avoid XSS attacks, the URL needs to be trusted from inside of your application.
@@ -38,11 +22,35 @@ export class AppComponent {
 
   private openAdminDialog() {
 		this.dialog.open(DialogComponent).afterClosed()
-		.filter(result => !!result)
-		.subscribe(user => {
-			this.users.push(user);
-			this.selectedUser = user;
-		});
+  }
+
+	ngOnInit(): void {
+		const thiz = this;
+		// const infoWindow = new google.maps.InfoWindow;
+
+		// Try HTML5 geolocation.
+		if ("geolocation" in navigator) {
+			navigator.geolocation.getCurrentPosition(function(position) {
+				const pos = {
+					lat: position.coords.latitude,
+					lng: position.coords.longitude
+				};
+
+				console.log({lat: pos.lat, lng: pos.lng});
+				thiz.lat = pos.lat;
+				thiz.lng = pos.lng;
+
+				/*
+				infoWindow.setPosition(pos);
+				infoWindow.setContent('Location found.');
+				infoWindow.open(map);
+				map.setCenter(pos);
+				*/
+			}, function() {
+			});
+		} else {
+			console.log('Browser doesnt support Geolocation');
+		}
   }
 
 

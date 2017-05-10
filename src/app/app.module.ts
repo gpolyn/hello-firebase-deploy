@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 import {MaterialModule} from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { AgmCoreModule } from 'angular2-google-maps/core';
+import {environment} from '../environments/environment'
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
@@ -21,6 +23,9 @@ import { DialogComponent } from './dialog/dialog.component';
     HttpModule,
     FlexLayoutModule,
     BrowserAnimationsModule,
+		AgmCoreModule.forRoot({
+      apiKey: environment.google_maps_api_key
+    }),
     MaterialModule.forRoot()
   ],
   providers: [],
