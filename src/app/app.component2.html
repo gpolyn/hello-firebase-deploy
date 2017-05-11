@@ -13,10 +13,16 @@
   </md-toolbar>
 
   <md-sidenav-container fxFlex>
+    <div id='some-id' style="display:none"></div>
     <div class="content" fxLayout="column" fxLayoutGap="6px" fxFlexFill>
-      <sebm-google-map (mapClick)="mapClicked($event)" fxFlex="45" class="one" [latitude]="lat" [longitude]="lng">
-        <sebm-google-map-marker (markerClick)="clickedMarker($event)" [latitude]="lat" [longitude]="lng"></sebm-google-map-marker></sebm-google-map>
-      
+      <sebm-google-map  #agmMap (mapClick)="mapClicked($event)" fxFlex="45" class="one" [latitude]="lat" [longitude]="lng">
+        <sebm-google-map-marker (markerClick)="clickedMarker($event)" [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>           <sebm-google-map-marker 
+						*ngFor="let m of markers; let i = index"
+						(markerClick)="clickedMarker($event)"
+						[latitude]="m.lat"
+						[longitude]="m.lng"
+						[markerDraggable]="m.draggable" ></sebm-google-map-marker> </sebm-google-map>
+
 
       <div fxLayoutAlign="space-around center" fxLayout="column" fxFlex="45" class="two"> 
         <button md-raised-button style="width:80%">days of week</button>

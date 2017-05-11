@@ -1,24 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { ViewChild, Component, OnInit, AfterViewInit } from '@angular/core';
 import {MdIconRegistry, MdDialog, MdDialogRef} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
 import {DialogComponent} from './dialog/dialog.component';
+import { MapsAPILoader, GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
+declare var google: any;
 
 @Component({
   selector: 'app-root',
+	providers: [GoogleMapsAPIWrapper],
   templateUrl: './app.component2.html',
 	styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
+	@ViewChild('agmMap') ag: any;
   lat: number = 51.678418;
   lng: number = 7.809007;
   isDarkTheme = false;
 	markers: any[] = [];
 
-	constructor(iconRegistry: MdIconRegistry, sanitizer: DomSanitizer, private dialog: MdDialog) {
+	constructor(iconRegistry: MdIconRegistry,
+							sanitizer: DomSanitizer, 
+							private dialog: MdDialog, 
+							private gmapsApi: GoogleMapsAPIWrapper,
+							private mapsAPILoader: MapsAPILoader) {
     // To avoid XSS attacks, the URL needs to be trusted from inside of your application.
     const avatarsSafeUrl = sanitizer.bypassSecurityTrustResourceUrl('./assets/avatars.svg');
 
     iconRegistry.addSvgIconSetInNamespace('avatars', avatarsSafeUrl);
+  }
+
+  ngAfterViewInit() {
   }
 
   private openAdminDialog() {
@@ -40,32 +51,49 @@ export class AppComponent implements OnInit {
   }
 
 	ngOnInit(): void {
+
 		const thiz = this;
 
-		// Try HTML5 geolocation.
-		if ("geolocation" in navigator) {
-			navigator.geolocation.getCurrentPosition(function(position) {
-				const pos = {
-					lat: position.coords.latitude,
-					lng: position.coords.longitude
-				};
+    this.mapsAPILoader.load().then(() => {
+  
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          console.log({lat: pos.lat, lng: pos.lng});
+          thiz.lat = pos.lat;
+          thiz.lng = pos.lng;
+          const container2 = document.createElement('div');
+          const service = new google.maps.places.PlacesService(container2);
+          const request = {
+            location: new google.maps.LatLng(thiz.lat, thiz.lng),
+            radius: '500',
+            types: ['store']
+          };
+          service.nearbySearch(request, (results, status) => { 
+            if (status === 'OK'){
+              console.log(results);
+              results.forEach( result => {
+								console.log('result', result);
+                thiz.markers.push({lat: result.geometry.location.lat,
+                                   lng: result.geometry.location.lng
+                });
+              });
+            } else {
+              console.log('something wrong with places request!')
+            }
+          });
 
-				console.log({lat: pos.lat, lng: pos.lng});
-				thiz.lat = pos.lat;
-				thiz.lng = pos.lng;
-				thiz.markers.push({lat: pos.lat, lng: pos.lng, draggable: false});
+          thiz.markers.push({lat: pos.lat, lng: pos.lng, draggable: false});
+        }, function() {
+        });
+      } else {
+        console.log('Browser doesnt support Geolocation');
+      }
+    })
 
-				/*
-				infoWindow.setPosition(pos);
-				infoWindow.setContent('Location found.');
-				infoWindow.open(map);
-				map.setCenter(pos);
-				*/
-			}, function() {
-			});
-		} else {
-			console.log('Browser doesnt support Geolocation');
-		}
   }
 
 

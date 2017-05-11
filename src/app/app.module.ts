@@ -24,7 +24,8 @@ import { DialogComponent } from './dialog/dialog.component';
     FlexLayoutModule,
     BrowserAnimationsModule,
 		AgmCoreModule.forRoot({
-      apiKey: environment.google_maps_api_key
+      apiKey: environment.google_maps_api_key,
+      libraries: ['places']
     }),
     MaterialModule.forRoot()
   ],
