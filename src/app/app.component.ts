@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
   lat: number = 51.678418;
   lng: number = 7.809007;
   isDarkTheme = false;
+	markers: any[] = [];
 
 	constructor(iconRegistry: MdIconRegistry, sanitizer: DomSanitizer, private dialog: MdDialog) {
     // To avoid XSS attacks, the URL needs to be trusted from inside of your application.
@@ -24,9 +25,22 @@ export class AppComponent implements OnInit {
 		this.dialog.open(DialogComponent).afterClosed()
   }
 
+  clickedMarker($event: MouseEvent) {
+    console.log('clicked marker', $event)
+  }
+
+	mapClicked($event: MouseEvent) {
+		console.log('click', $event);
+		/*
+    this.markers.push({
+      lat: $event.coords.lat,
+      lng: $event.coords.lng
+    });
+		*/
+  }
+
 	ngOnInit(): void {
 		const thiz = this;
-		// const infoWindow = new google.maps.InfoWindow;
 
 		// Try HTML5 geolocation.
 		if ("geolocation" in navigator) {
@@ -39,6 +53,7 @@ export class AppComponent implements OnInit {
 				console.log({lat: pos.lat, lng: pos.lng});
 				thiz.lat = pos.lat;
 				thiz.lng = pos.lng;
+				thiz.markers.push({lat: pos.lat, lng: pos.lng, draggable: false});
 
 				/*
 				infoWindow.setPosition(pos);

@@ -14,8 +14,8 @@
 
   <md-sidenav-container fxFlex>
     <div class="content" fxLayout="column" fxLayoutGap="6px" fxFlexFill>
-      <sebm-google-map fxFlex="45" class="one" [latitude]="lat" [longitude]="lng">
-        <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker></sebm-google-map>
+      <sebm-google-map (mapClick)="mapClicked($event)" fxFlex="45" class="one" [latitude]="lat" [longitude]="lng">
+        <sebm-google-map-marker (markerClick)="clickedMarker($event)" [latitude]="lat" [longitude]="lng"></sebm-google-map-marker></sebm-google-map>
       
 
       <div fxLayoutAlign="space-around center" fxLayout="column" fxFlex="45" class="two"> 
