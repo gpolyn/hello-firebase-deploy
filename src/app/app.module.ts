@@ -14,7 +14,8 @@ import 'hammerjs';
 
 import { AppComponent } from './app.component';
 import { DialogComponent } from './dialog/dialog.component';
-import { ChoiceComponent } from './choice/choice.component';
+//import { ChoiceComponent } from './choice/choice.component';
+import { ChoiceModule } from './choice/choice.module';
 import { VisualizationComponent } from './visualizations/visualization.component';
 
 export class MyHammerConfig extends HammerGestureConfig  {
@@ -29,11 +30,11 @@ export class MyHammerConfig extends HammerGestureConfig  {
   AppComponent,
   DialogComponent,
   VisualizationComponent,
-  ChoiceComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ChoiceModule,
     HttpModule,
     FlexLayoutModule,
     BrowserAnimationsModule,
