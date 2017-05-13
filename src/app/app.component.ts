@@ -13,6 +13,7 @@ declare var google: any;
 })
 export class AppComponent implements OnInit, AfterViewInit {
 	@ViewChild('agmMap') ag: any;
+  latLngBounds: any;
   lat: number = 51.678418;
   lng: number = 7.809007;
   isDarkTheme = false;
@@ -63,6 +64,11 @@ export class AppComponent implements OnInit, AfterViewInit {
             lng: position.coords.longitude
           };
           console.log({lat: pos.lat, lng: pos.lng});
+          thiz.latLngBounds = new google.maps.LatLngBounds(
+            new google.maps.LatLng(55.38942944437183, -2.7379201682812226),
+            new google.maps.LatLng(54.69726685890506, -1.2456105979687226)
+          );
+
           thiz.lat = pos.lat;
           thiz.lng = pos.lng;
           const container2 = document.createElement('div');
