@@ -8,6 +8,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 import {environment} from '../environments/environment'
 import { AppRoutingModule } from './app-routing.module';
+import { ChartsModule } from 'ng2-charts';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 import 'hammerjs';
@@ -17,6 +18,7 @@ import { DialogComponent } from './dialog/dialog.component';
 //import { ChoiceComponent } from './choice/choice.component';
 import { ChoiceModule } from './choice/choice.module';
 import { VisualizationComponent } from './visualizations/visualization.component';
+import { BarChartDemoComponent } from './visualizations/bar-chart-demo.component';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
@@ -30,9 +32,11 @@ export class MyHammerConfig extends HammerGestureConfig  {
   AppComponent,
   DialogComponent,
   VisualizationComponent,
+  BarChartDemoComponent
   ],
   imports: [
     BrowserModule,
+    ChartsModule,
     FormsModule,
     ChoiceModule,
     HttpModule,
