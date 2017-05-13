@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'choice',
-	host: {class: 'myClass'},
+  host: {class: 'myClass'},
   styles: ['div {background-color: gray}', 'button {width: 80%}'],
   template: `
     <div fxLayoutAlign="space-around center" fxLayout="column" fxFlex> 
