@@ -1,13 +1,15 @@
 <div fxLayoutAlign="space-around center" fxLayout="column" fxFlex> 
-  <div style="display: block">
+  <md-card class="example-card" 
+    *ngFor="let avatar of barChartData; let idx=index"
+    (swipeleft)="swipe(idx, $event.type)" (swiperight)="swipe(idx, $event.type)" 
+    [class.visible]="avatar.visible" [class.hidden]="!avatar.visible">
     <canvas baseChart
-            [datasets]="barChartData"
+            [datasets]="currentBarChartData"
             [labels]="barChartLabels"
             [options]="barChartOptions"
             [legend]="barChartLegend"
             [chartType]="barChartType"
             (chartHover)="chartHovered($event)"
             (chartClick)="chartClicked($event)"></canvas>
-  </div>
-  <button (click)="randomize()">Update</button>
+  </md-card>
 </div>
