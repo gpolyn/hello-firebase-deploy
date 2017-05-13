@@ -1,34 +1,57 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'visualization',
-  template: `
-		<div class="swiper-wrapper">
-				<div class="swiper-slide">Slide 1</div>
-						<div class="swiper-slide">Slide 2</div>
-						<div class="swiper-slide">Slide 3</div>
-						<div class="swiper-slide">Slide 4</div>
-						<div class="swiper-slide">Slide 5</div>
-						<div class="swiper-slide">Slide 6</div>
-						<div class="swiper-slide">Slide 7</div>
-						<div class="swiper-slide">Slide 8</div>
-						<div class="swiper-slide">Slide 9</div>
-						<div class="swiper-slide">Slide 10</div>
-				</div>
-				<!-- Add Pagination -->
-				<div class="swiper-pagination"></div>
-				<!-- Add Arrows -->
-				<div class="swiper-button-next"></div>
-				<div class="swiper-button-prev"></div>
-  `
+  selector: 'swiper',
+	host: {class: 'myClass'},
+  templateUrl: './visualization.alt.component.html',
+  styleUrls: ['./visualization.component.css']
 })
 export class VisualizationComponent {
+  
+    SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
 
-	constructor() { }
+    avatars = [
+        {
+            name: 'kristy',
+            image: 'http://semantic-ui.com/images/avatar2/large/kristy.png',
+            visible: true
+        },
+        {
+            name: 'matthew',
+            image: 'http://semantic-ui.com/images/avatar2/large/matthew.png',
+            visible: false
+        },
+        {
+            name: 'chris',
+            image: 'http://semantic-ui.com/images/avatar/large/chris.jpg',
+            visible: false
+        },
+        {
+            name: 'jenny',
+            image: 'http://semantic-ui.com/images/avatar/large/jenny.jpg',
+            visible: false
+        }
+    ];
+    
+    swipe(currentIndex: number, action: string = this.SWIPE_ACTION.RIGHT) {
+        console.log(currentIndex);
+        if (currentIndex > this.avatars.length || currentIndex < 0) return;
 
-  ngAfterViewInit(): void { }
+        let nextIndex = 0;
+        
+        // next
+        if (action === this.SWIPE_ACTION.RIGHT) {
+            const isLast = currentIndex === this.avatars.length - 1;
+            nextIndex = isLast ? 0 : currentIndex + 1;
+        }
 
-	ngOnInit(): void { }
+        // previous
+        if (action === this.SWIPE_ACTION.LEFT) {
+            const isFirst = currentIndex === 0;
+            nextIndex = isFirst ? this.avatars.length - 1 : currentIndex - 1;
+        }
 
-
+        // toggle avatar visibility
+        this.avatars.forEach((x, i) => x.visible = (i === nextIndex));
+    }
 }

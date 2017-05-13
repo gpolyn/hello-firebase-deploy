@@ -1,0 +1,20 @@
+.example-card,
+.swipe-box {
+    display: block;
+    width: 100%;
+    float: left;
+    margin: 0;
+    transform: .5s ease .1s;
+}
+
+.example-card {
+  width: inherit;
+}
+
+.visible {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}

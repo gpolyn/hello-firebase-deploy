@@ -1,0 +1,10 @@
+<div fxLayoutAlign="space-around center" fxLayout="column" fxFlex> 
+  <md-card class="example-card" 
+    *ngFor="let avatar of avatars; let idx=index"
+    (swipeleft)="swipe(idx, $event.type)" (swiperight)="swipe(idx, $event.type)" 
+    [class.visible]="avatar.visible" [class.hidden]="!avatar.visible">
+      <md-card-content>
+        <h1>{{avatar.name}}</h1>
+      </md-card-content>
+  </md-card>
+</div>
