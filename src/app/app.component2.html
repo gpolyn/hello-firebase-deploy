@@ -23,12 +23,7 @@
         [longitude]="m.lng"
         [markerDraggable]="m.draggable" ></sebm-google-map-marker> 
       </sebm-google-map>
-
-
-      <div fxLayoutAlign="space-around center" fxLayout="column" fxFlex="45" class="two"> 
-        <button md-raised-button style="width:80%">days of week</button>
-        <button md-raised-button>days in future</button>
-      </div>
+      <router-outlet></router-outlet>
       <div fxLayoutAlign="space-around center" fxLayout="column" fxFlex="10" class="three"> 
         <button md-raised-button>add discounts</button>
       </div>
