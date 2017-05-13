@@ -37,13 +37,13 @@ export class MyHammerConfig extends HammerGestureConfig  {
     ChoiceModule,
     HttpModule,
     FlexLayoutModule,
+    MaterialModule,
     BrowserAnimationsModule,
 		AgmCoreModule.forRoot({
       apiKey: environment.google_maps_api_key,
       libraries: ['places']
     }),
     AppRoutingModule,
-    MaterialModule.forRoot()
   ],
 	providers: [ { 
 									provide: HAMMER_GESTURE_CONFIG, 
