@@ -64,10 +64,14 @@ export class AppComponent implements OnInit, AfterViewInit {
             lng: position.coords.longitude
           };
           console.log({lat: pos.lat, lng: pos.lng});
+          /*
           thiz.latLngBounds = new google.maps.LatLngBounds(
             new google.maps.LatLng(55.38942944437183, -2.7379201682812226),
             new google.maps.LatLng(54.69726685890506, -1.2456105979687226)
           );
+          */
+
+					var bounds = new google.maps.LatLngBounds();
 
           thiz.lat = pos.lat;
           thiz.lng = pos.lng;
@@ -75,14 +79,24 @@ export class AppComponent implements OnInit, AfterViewInit {
           const service = new google.maps.places.PlacesService(container2);
           const request = {
             location: new google.maps.LatLng(thiz.lat, thiz.lng),
-            radius: '500',
+						rankBy: google.maps.places.RankBy.DISTANCE,
             types: ['store']
           };
-          service.nearbySearch(request, (results, status) => { 
+          service.nearbySearch(request, (results, status, pagination) => { 
             if (status === 'OK'){
-              console.log(results);
+              console.log('pagination',pagination);
               results.forEach( result => {
 								console.log('result', result);
+
+								bounds.extend(result.geometry.location);
+								console.log(bounds.toJSON());
+
+                service.getDetails({placeId: result.place_id}, (place, status) => {
+                  if (status == google.maps.places.PlacesServiceStatus.OK) {
+										console.log(place);
+									}
+                }); 
+
                 thiz.markers.push({lat: result.geometry.location.lat,
                                    lng: result.geometry.location.lng
                 });
