@@ -63,7 +63,6 @@ export class AppComponent implements OnInit, AfterViewInit {
             lat: position.coords.latitude,
             lng: position.coords.longitude
           };
-          console.log({lat: pos.lat, lng: pos.lng});
           /*
           thiz.latLngBounds = new google.maps.LatLngBounds(
             new google.maps.LatLng(55.38942944437183, -2.7379201682812226),
@@ -82,31 +81,42 @@ export class AppComponent implements OnInit, AfterViewInit {
 						rankBy: google.maps.places.RankBy.DISTANCE,
             types: ['store']
           };
-          service.nearbySearch(request, (results, status, pagination) => { 
-            if (status === 'OK'){
-              console.log('pagination',pagination);
-              results.forEach( result => {
-								console.log('result', result);
+          const srch = new Promise((resolve, reject) => {
+            service.nearbySearch(request, (results, status, pagination) => { 
+              if (status === 'OK'){
+                //console.log('pagination',pagination);
+                results.forEach( result => {
+                  //console.log('result', result);
 
-								bounds.extend(result.geometry.location);
-								console.log(bounds.toJSON());
+                  bounds.extend(result.geometry.location);
+                  //console.log(bounds.toJSON());
 
-                service.getDetails({placeId: result.place_id}, (place, status) => {
-                  if (status == google.maps.places.PlacesServiceStatus.OK) {
-										console.log(place);
-									}
-                }); 
+                  service.getDetails({placeId: result.place_id}, (place, status) => {
+                    if (status == google.maps.places.PlacesServiceStatus.OK) {
+                      //console.log(place);
+                    }
+                  }); 
 
-                thiz.markers.push({lat: result.geometry.location.lat,
-                                   lng: result.geometry.location.lng
+                  thiz.markers.push({lat: result.geometry.location.lat(),
+                                     lng: result.geometry.location.lng()
+                  });
                 });
-              });
-            } else {
-              console.log('something wrong with places request!')
-            }
+								resolve(thiz.markers);
+              } else {
+								reject;
+              }
+            });
+
           });
 
-          thiz.markers.push({lat: pos.lat, lng: pos.lng, draggable: false});
+					srch.then((data) => {
+            console.log('markers', thiz.markers);
+						thiz.latLngBounds = bounds;
+            thiz.markers.push({lat: pos.lat, lng: pos.lng, draggable: false});
+          });
+
+          //thiz.markers.push({lat: pos.lat, lng: pos.lng, draggable: false});
+
         }, function() {
         });
       } else {
