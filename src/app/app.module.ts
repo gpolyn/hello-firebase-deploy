@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, JsonpModule, BrowserXhr } from '@angular/http';
 import {MaterialModule} from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -19,6 +19,8 @@ import { DialogComponent } from './dialog/dialog.component';
 import { ChoiceModule } from './choice/choice.module';
 import { VisualizationComponent } from './visualizations/visualization.component';
 import { BarChartDemoComponent } from './visualizations/bar-chart-demo.component';
+import { EstablishmentsService } from './establishments.service';
+import { GooglePlacesService } from './google-places.service';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
@@ -40,6 +42,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     FormsModule,
     ChoiceModule,
     HttpModule,
+		JsonpModule,
     FlexLayoutModule,
     MaterialModule,
     BrowserAnimationsModule,
@@ -52,7 +55,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
 	providers: [ { 
 									provide: HAMMER_GESTURE_CONFIG, 
 									useClass: MyHammerConfig 
-	} ],
+	}, GooglePlacesService, EstablishmentsService],
   entryComponents: [DialogComponent],
   bootstrap: [AppComponent]
 })

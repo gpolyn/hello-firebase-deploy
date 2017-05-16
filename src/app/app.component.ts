@@ -3,12 +3,13 @@ import {MdIconRegistry, MdDialog, MdDialogRef} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
 import {DialogComponent} from './dialog/dialog.component';
 import { MapsAPILoader, GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
+import {EstablishmentsService} from './establishments.service';
 declare var google: any;
 
 @Component({
   selector: 'app-root',
-	providers: [GoogleMapsAPIWrapper],
-  templateUrl: './app.component2.html',
+	providers: [GoogleMapsAPIWrapper, EstablishmentsService],
+  templateUrl: './app.component.html',
 	styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, AfterViewInit {
@@ -22,12 +23,16 @@ export class AppComponent implements OnInit, AfterViewInit {
 	constructor(iconRegistry: MdIconRegistry,
 							sanitizer: DomSanitizer, 
 							private dialog: MdDialog, 
+              private establishmentsSvc: EstablishmentsService,  
 							private gmapsApi: GoogleMapsAPIWrapper,
 							private mapsAPILoader: MapsAPILoader) {
     // To avoid XSS attacks, the URL needs to be trusted from inside of your application.
     const avatarsSafeUrl = sanitizer.bypassSecurityTrustResourceUrl('./assets/avatars.svg');
 
     iconRegistry.addSvgIconSetInNamespace('avatars', avatarsSafeUrl);
+    establishmentsSvc.getCurrentSelection().subscribe( selection => {
+      console.log('current selection', selection);
+    })
   }
 
   ngAfterViewInit() {
@@ -37,18 +42,13 @@ export class AppComponent implements OnInit, AfterViewInit {
 		this.dialog.open(DialogComponent).afterClosed()
   }
 
-  clickedMarker($event: MouseEvent) {
+  clickedMarker($event: any) {
     console.log('clicked marker', $event)
+    this.establishmentsSvc.setCurrentSelection({place_id: $event});
   }
 
 	mapClicked($event: MouseEvent) {
 		console.log('click', $event);
-		/*
-    this.markers.push({
-      lat: $event.coords.lat,
-      lng: $event.coords.lng
-    });
-		*/
   }
 
 	ngOnInit(): void {
@@ -63,12 +63,6 @@ export class AppComponent implements OnInit, AfterViewInit {
             lat: position.coords.latitude,
             lng: position.coords.longitude
           };
-          /*
-          thiz.latLngBounds = new google.maps.LatLngBounds(
-            new google.maps.LatLng(55.38942944437183, -2.7379201682812226),
-            new google.maps.LatLng(54.69726685890506, -1.2456105979687226)
-          );
-          */
 
 					var bounds = new google.maps.LatLngBounds();
 
@@ -83,25 +77,20 @@ export class AppComponent implements OnInit, AfterViewInit {
           };
           const srch = new Promise((resolve, reject) => {
             service.nearbySearch(request, (results, status, pagination) => { 
+
               if (status === 'OK'){
-                //console.log('pagination',pagination);
+
+                const promises = [];
+
                 results.forEach( result => {
-                  //console.log('result', result);
 
                   bounds.extend(result.geometry.location);
-                  //console.log(bounds.toJSON());
+                  thiz.markers.push({place_id: result.place_id, lat: result.geometry.location.lat(), lng: result.geometry.location.lng() });
 
-                  service.getDetails({placeId: result.place_id}, (place, status) => {
-                    if (status == google.maps.places.PlacesServiceStatus.OK) {
-                      //console.log(place);
-                    }
-                  }); 
+                }); // forEach
 
-                  thiz.markers.push({lat: result.geometry.location.lat(),
-                                     lng: result.geometry.location.lng()
-                  });
-                });
 								resolve(thiz.markers);
+
               } else {
 								reject;
               }

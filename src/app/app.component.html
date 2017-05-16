@@ -18,7 +18,7 @@
       <sebm-google-map  #agmMap (mapClick)="mapClicked($event)" fxFlex="45" class="one" [latitude]="lat" [longitude]="lng" [fitBounds]="latLngBounds">
         <sebm-google-map-marker 
         *ngFor="let m of markers; let i = index"
-        (markerClick)="clickedMarker($event)"
+        (markerClick)="clickedMarker(m.place_id)"
         [latitude]="m.lat"
         [longitude]="m.lng"
         [markerDraggable]="m.draggable" ></sebm-google-map-marker> 
