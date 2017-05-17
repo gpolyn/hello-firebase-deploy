@@ -15,9 +15,10 @@
   <md-sidenav-container fxFlex>
     <div id='some-id' style="display:none"></div>
     <div class="content" fxLayout="column" fxLayoutGap="6px" fxFlexFill>
-      <sebm-google-map  #agmMap (mapClick)="mapClicked($event)" fxFlex="45" class="one" [latitude]="lat" [longitude]="lng" [fitBounds]="latLngBounds">
+      <sebm-google-map  #agmMap (boundsChange)="mapChanged($event)" (mapClick)="mapClicked($event)" fxFlex="45" class="one" [latitude]="lat" [longitude]="lng" [fitBounds]="latLngBounds">
         <sebm-google-map-marker 
         *ngFor="let m of markers; let i = index"
+                                                                                         [label]="m.label"                       
         (markerClick)="clickedMarker(m.place_id)"
         [latitude]="m.lat"
         [longitude]="m.lng"

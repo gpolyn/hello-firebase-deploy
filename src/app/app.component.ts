@@ -51,6 +51,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 		console.log('click', $event);
   }
 
+  mapChanged($event: MouseEvent) {
+  //   console.log('mapChanged', $event);
+  }
+
 	ngOnInit(): void {
 
 		const thiz = this;
@@ -78,18 +82,26 @@ export class AppComponent implements OnInit, AfterViewInit {
           const srch = new Promise((resolve, reject) => {
             service.nearbySearch(request, (results, status, pagination) => { 
 
+              console.log('pagination', pagination);
+
               if (status === 'OK'){
 
-                const promises = [];
-
-                results.forEach( result => {
-
+                results.forEach( ( result, i ) => {
+                  console.log('location', i);
                   bounds.extend(result.geometry.location);
-                  thiz.markers.push({place_id: result.place_id, lat: result.geometry.location.lat(), lng: result.geometry.location.lng() });
+                  thiz.markers.push({label: i + '', place_id: result.place_id, lat: result.geometry.location.lat(), lng: result.geometry.location.lng() });
 
                 }); // forEach
 
 								resolve(thiz.markers);
+
+                /*
+                if (pagination.hasNextPage) {
+                  setTimeout(()=> {
+                    pagination.nextPage();
+                  }, 2000)
+                }
+                */
 
               } else {
 								reject;
