@@ -22,6 +22,8 @@ import { BarChartDemoComponent } from './visualizations/bar-chart-demo.component
 import { EstablishmentsService } from './establishments.service';
 import { GooglePlacesService } from './google-places.service';
 import { HourlyDataService } from './hourly-data.service';
+import { GooglePlacesRadarSearchService } from './google-places-radar-search.service';
+import { GooglePlacesNearbySearchService } from './google-places-nearby-search.service';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
@@ -58,6 +60,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
 									useClass: MyHammerConfig 
                   }, 
                   GooglePlacesService, 
+                  GooglePlacesRadarSearchService,  
+                  GooglePlacesNearbySearchService,  
                   HourlyDataService,
                   EstablishmentsService],
   entryComponents: [DialogComponent],

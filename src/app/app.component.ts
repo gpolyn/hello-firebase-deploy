@@ -4,6 +4,8 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {DialogComponent} from './dialog/dialog.component';
 import { MapsAPILoader, GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
 import {EstablishmentsService} from './establishments.service';
+import {GooglePlacesRadarSearchService} from './google-places-radar-search.service';
+import {GooglePlacesNearbySearchService} from './google-places-nearby-search.service';
 declare var google: any;
 
 @Component({
@@ -23,6 +25,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 	constructor(iconRegistry: MdIconRegistry,
 							sanitizer: DomSanitizer, 
 							private dialog: MdDialog, 
+              private radarSearchSvc: GooglePlacesRadarSearchService,
+              private nearbySearchSvc: GooglePlacesNearbySearchService,
               private establishmentsSvc: EstablishmentsService,  
 							private gmapsApi: GoogleMapsAPIWrapper,
 							private mapsAPILoader: MapsAPILoader) {
@@ -44,6 +48,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   clickedMarker($event: any) {
     console.log('clicked marker', $event)
+    this.radarSearchSvc.search({lat: this.lat, lng: this.lng}, 'cafe').subscribe(result => console.log('radar search result', result));
     this.establishmentsSvc.setCurrentSelection({place_id: $event});
   }
 
@@ -72,42 +77,21 @@ export class AppComponent implements OnInit, AfterViewInit {
 
           thiz.lat = pos.lat;
           thiz.lng = pos.lng;
-          const container2 = document.createElement('div');
-          const service = new google.maps.places.PlacesService(container2);
-          const request = {
-            location: new google.maps.LatLng(thiz.lat, thiz.lng),
-						rankBy: google.maps.places.RankBy.DISTANCE,
-            types: ['store']
-          };
+
           const srch = new Promise((resolve, reject) => {
-            service.nearbySearch(request, (results, status, pagination) => { 
 
-              console.log('pagination', pagination);
+            thiz.radarSearchSvc.search(pos, 'cafe').toPromise().then( data => {
+            //thiz.nearbySearchSvc.searchRankedByDistance(pos, 'cafe').toPromise().then( data => {
+              console.log('nearby search svc', data);
+              data.forEach( ( result, i ) => {
+                if (i < 2) bounds.extend(result.geometry.location);
+                thiz.markers.push({label: i + '', place_id: result.place_id, lat: result.geometry.location.lat, lng: result.geometry.location.lng });
 
-              if (status === 'OK'){
+              }); // forEach
 
-                results.forEach( ( result, i ) => {
-                  console.log('location', i);
-                  bounds.extend(result.geometry.location);
-                  thiz.markers.push({label: i + '', place_id: result.place_id, lat: result.geometry.location.lat(), lng: result.geometry.location.lng() });
+              resolve(thiz.markers);
 
-                }); // forEach
-
-								resolve(thiz.markers);
-
-                /*
-                if (pagination.hasNextPage) {
-                  setTimeout(()=> {
-                    pagination.nextPage();
-                  }, 2000)
-                }
-                */
-
-              } else {
-								reject;
-              }
-            });
-
+              });
           });
 
 					srch.then((data) => {
