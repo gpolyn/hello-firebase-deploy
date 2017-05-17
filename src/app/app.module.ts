@@ -20,6 +20,7 @@ import { ChoiceModule } from './choice/choice.module';
 import { VisualizationComponent } from './visualizations/visualization.component';
 import { BarChartDemoComponent } from './visualizations/bar-chart-demo.component';
 import { EstablishmentsService } from './establishments.service';
+import { GeoLocationService } from './geolocation.service';
 import { GooglePlacesService } from './google-places.service';
 import { HourlyDataService } from './hourly-data.service';
 import { GooglePlacesRadarSearchService } from './google-places-radar-search.service';
@@ -63,6 +64,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
                   GooglePlacesRadarSearchService,  
                   GooglePlacesNearbySearchService,  
                   HourlyDataService,
+                  GeoLocationService,
                   EstablishmentsService],
   entryComponents: [DialogComponent],
   bootstrap: [AppComponent]

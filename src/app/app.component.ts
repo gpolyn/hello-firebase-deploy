@@ -4,6 +4,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {DialogComponent} from './dialog/dialog.component';
 import { MapsAPILoader, GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
 import {EstablishmentsService} from './establishments.service';
+import {GeoLocationService} from './geolocation.service';
 import {GooglePlacesRadarSearchService} from './google-places-radar-search.service';
 import {GooglePlacesNearbySearchService} from './google-places-nearby-search.service';
 declare var google: any;
@@ -28,6 +29,7 @@ export class AppComponent implements OnInit, AfterViewInit {
               private radarSearchSvc: GooglePlacesRadarSearchService,
               private nearbySearchSvc: GooglePlacesNearbySearchService,
               private establishmentsSvc: EstablishmentsService,  
+              private geoSvc: GeoLocationService,
 							private gmapsApi: GoogleMapsAPIWrapper,
 							private mapsAPILoader: MapsAPILoader) {
     // To avoid XSS attacks, the URL needs to be trusted from inside of your application.
@@ -60,54 +62,71 @@ export class AppComponent implements OnInit, AfterViewInit {
   //   console.log('mapChanged', $event);
   }
 
+  private getPlacesByType(placeType: string): void{
+
+      this.geoSvc.getLocation().toPromise().then(position => {
+        const coords = position.coords;
+        var bounds = new google.maps.LatLngBounds();
+
+        this.lat = coords.latitude;
+        this.lng = coords.longitude;
+        const pos = {lat: this.lat, lng: this.lng};
+
+        const srch = new Promise((resolve, reject) => {
+
+          this.nearbySearchSvc.searchRankedByDistance(pos, placeType).toPromise().then( data => {
+            console.log('nearby search svc', data);
+            data.forEach( ( result, i ) => {
+              if (i < 2) bounds.extend(result.geometry.location);
+              this.markers.push({label: i + '', place_id: result.place_id, lat: result.geometry.location.lat, lng: result.geometry.location.lng });
+
+            }); // forEach
+
+            resolve(this.markers);
+
+            });
+        });
+
+        srch.then((data) => {
+          console.log('markers', this.markers);
+          this.latLngBounds = bounds;
+          this.markers.push({lat: pos.lat, lng: pos.lng, draggable: false});
+        });
+      }).catch(err => console.log(err));
+  }
+
 	ngOnInit(): void {
 
-		const thiz = this;
+      this.geoSvc.getLocation().toPromise().then(position => {
+        const coords = position.coords;
+        var bounds = new google.maps.LatLngBounds();
 
-    this.mapsAPILoader.load().then(() => {
-  
-      if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
+        this.lat = coords.latitude;
+        this.lng = coords.longitude;
+        const pos = {lat: this.lat, lng: this.lng};
 
-					var bounds = new google.maps.LatLngBounds();
+        const srch = new Promise((resolve, reject) => {
 
-          thiz.lat = pos.lat;
-          thiz.lng = pos.lng;
+          //this.radarSearchSvc.search(pos, 'cafe').toPromise().then( data => {
+          this.nearbySearchSvc.searchRankedByDistance(pos, 'cafe').toPromise().then( data => {
+            console.log('nearby search svc', data);
+            data.forEach( ( result, i ) => {
+              if (i < 2) bounds.extend(result.geometry.location);
+              this.markers.push({label: i + '', place_id: result.place_id, lat: result.geometry.location.lat, lng: result.geometry.location.lng });
 
-          const srch = new Promise((resolve, reject) => {
+            }); // forEach
 
-            thiz.radarSearchSvc.search(pos, 'cafe').toPromise().then( data => {
-            //thiz.nearbySearchSvc.searchRankedByDistance(pos, 'cafe').toPromise().then( data => {
-              console.log('nearby search svc', data);
-              data.forEach( ( result, i ) => {
-                if (i < 2) bounds.extend(result.geometry.location);
-                thiz.markers.push({label: i + '', place_id: result.place_id, lat: result.geometry.location.lat, lng: result.geometry.location.lng });
+            resolve(this.markers);
 
-              }); // forEach
-
-              resolve(thiz.markers);
-
-              });
-          });
-
-					srch.then((data) => {
-            console.log('markers', thiz.markers);
-						thiz.latLngBounds = bounds;
-            thiz.markers.push({lat: pos.lat, lng: pos.lng, draggable: false});
-          });
-
-          //thiz.markers.push({lat: pos.lat, lng: pos.lng, draggable: false});
-
-        }, function() {
+            });
         });
-      } else {
-        console.log('Browser doesnt support Geolocation');
-      }
-    })
+
+        srch.then((data) => {
+          console.log('markers', this.markers);
+          this.latLngBounds = bounds;
+          this.markers.push({lat: pos.lat, lng: pos.lng, draggable: false});
+        });
+      }).catch(err => console.log(err));
 
   }
 
