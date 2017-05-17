@@ -32,5 +32,8 @@
   </md-sidenav-container>
   <md-menu #themeMenu x-position="before">
     <button md-menu-item (click)="isDarkTheme = !isDarkTheme">Toggle Theme</button>
+    <button md-menu-item (click)="changePlaceType('cafe')">cafe</button>
+    <button md-menu-item (click)="changePlaceType('bar')">bar</button>
+    <button md-menu-item (click)="changePlaceType('bakery')">bakery</button>
   </md-menu>
 </div>

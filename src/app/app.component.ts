@@ -41,6 +41,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     })
   }
 
+  changePlaceType(type: string){
+    console.log(type);
+    this.getPlacesByType(type);
+  }
+
   ngAfterViewInit() {
   }
 
