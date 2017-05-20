@@ -16,7 +16,7 @@ const appRoutes: Routes = [
   { path: 'swipe', component: VisualizationComponent },
   { path: 'bar-chart', component: BarChartDemoComponent },
 	{ path: '',
-    redirectTo: '/choice',
+    redirectTo: '/bar-chart',
     pathMatch: 'full'
   },
 ]
