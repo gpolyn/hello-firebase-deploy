@@ -1,4 +1,5 @@
 .example-card,
+.title-card,
 .swipe-box {
     display: block;
     width: 100%;
@@ -7,8 +8,34 @@
     transform: .5s ease .1s;
 }
 
+.place-detail {
+  // width:100%;
+}
+
+.no-hourly-data {
+  width:100%;
+  height:100%;
+  background-color: lightgrey;
+  text-align: center;
+  font-style: italic;
+}
+
+.chart-title {
+  text-align: center;
+}
+
+.title-card,
 .example-card {
   width: inherit;
+}
+
+.example-card.visible {
+  width:100%;
+  margin-bottom: 6px;
+}
+
+.title-card-title,
+.title-card-subtitle {
 }
 
 .visible {

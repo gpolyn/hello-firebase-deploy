@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'swiper',
-	host: {class: 'myClass'},
+  host: {class: 'myClass'},
   templateUrl: './visualization.alt.component.html',
   styleUrls: ['./visualization.component.css']
 })

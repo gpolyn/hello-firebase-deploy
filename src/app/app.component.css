@@ -7,6 +7,10 @@ md-sidenav {
   width: 320px;
 }
 
+.active {
+  color: #00897b;
+}
+
 /deep/ md-icon.avatar,
 .avatar {
   overflow: hidden;

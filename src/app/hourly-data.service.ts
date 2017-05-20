@@ -24,12 +24,17 @@ export class HourlyDataService {
 
   extractHourlyData(googlePlaceData: any): any[] {
     const periods = googlePlaceData.opening_hours && googlePlaceData.opening_hours.periods;
+    console.log('periods', periods)
     const data: any[] = [];
+    for (let i = 0; i < 7; i++){
+      data.push({hasData: false});
+    }
     if (periods === undefined) return data;
     periods.forEach( period => {
-      const newData = {isToday: false, hourlyValueLabels:[], label: '', hourlyValues:[]};
-      newData.isToday = (period.open.day === this.day);
-      newData.label = this.dayLabels[period.open.day];
+      const newData = {hasData: true, isToday: false, hourlyValueLabels:[], label: '', hourlyValues:[]};
+      const day = period.open.day;
+      if (this.day === day) newData.isToday = true;
+      newData.label = this.dayLabels[day];
       const open = Math.floor(Number.parseInt(period.open.time)/100.0);
       const close = Math.floor(Number.parseInt(period.close.time)/100.0);
       const totalHours = close - open;
@@ -39,7 +44,7 @@ export class HourlyDataService {
         newData.hourlyValueLabels.push(open + i);
         newData.hourlyValues.push(getRandInt());
       }
-      data.push(newData);
+      data[day] = newData;
     });
     return data;
   }

@@ -14,6 +14,7 @@ import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-br
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
+import { PlaceDetailComponent } from './components/place-detail.component';
 import { DialogComponent } from './dialog/dialog.component';
 //import { ChoiceComponent } from './choice/choice.component';
 import { ChoiceModule } from './choice/choice.module';
@@ -25,6 +26,7 @@ import { GooglePlacesService } from './google-places.service';
 import { HourlyDataService } from './hourly-data.service';
 import { GooglePlacesRadarSearchService } from './google-places-radar-search.service';
 import { GooglePlacesNearbySearchService } from './google-places-nearby-search.service';
+import { SelectedPlaceTypeService } from './selected-place-type.service';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
@@ -37,6 +39,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
   declarations: [
   AppComponent,
   DialogComponent,
+  PlaceDetailComponent,
   VisualizationComponent,
   BarChartDemoComponent
   ],
@@ -61,6 +64,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
 									useClass: MyHammerConfig 
                   }, 
                   GooglePlacesService, 
+                  SelectedPlaceTypeService,
                   GooglePlacesRadarSearchService,  
                   GooglePlacesNearbySearchService,  
                   HourlyDataService,

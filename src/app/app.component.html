@@ -1,7 +1,10 @@
 <div fxLayout="column" fxFlex [class.dark-theme]="isDarkTheme">
 
   <md-toolbar color="primary">
-    <span>Angular Material</span>
+    <button md-icon-button (click)="sidenav.toggle()">
+      <md-icon>menu</md-icon>
+    </button>
+    <span>Angular Map App</span>
 
     <!-- Filler that pushes the menu button to the end of the toolbar -->
     <span fxFlex></span>
@@ -13,27 +16,33 @@
   </md-toolbar>
 
   <md-sidenav-container fxFlex>
+    <md-sidenav mode="side" opened="sideNavIsOpen" #sidenav style="width:120px">
+      <button md-menu-item [class.active]="selectedPlace === placeType.cafe" (click)="changePlaceType(placeType.cafe)">cafe</button>
+      <button md-menu-item [class.active]="selectedPlace === placeType.bar" (click)="changePlaceType(placeType.bar)">bar</button>
+      <button md-menu-item [class.active]="selectedPlace === placeType.bakery" (click)="changePlaceType(placeType.bakery)">bakery</button>
+    </md-sidenav>
     <div id='some-id' style="display:none"></div>
     <div class="content" fxLayout="column" fxLayoutGap="6px" fxFlexFill>
-      <sebm-google-map  #agmMap (boundsChange)="mapChanged($event)" (mapClick)="mapClicked($event)" fxFlex="45" class="one" [latitude]="lat" [longitude]="lng" [fitBounds]="latLngBounds">
+      <sebm-google-map  #agmMap (boundsChange)="mapChanged($event)" (mapClick)="mapClicked($event)" fxFlex="40" class="one" [latitude]="lat" [longitude]="lng" [fitBounds]="latLngBounds">
         <sebm-google-map-marker 
         *ngFor="let m of markers; let i = index"
-                                                                                         [label]="m.label"                       
+        [label]="m.label"                       
         (markerClick)="clickedMarker(m.place_id)"
         [latitude]="m.lat"
+        [iconUrl]="m.iconUrl"
         [longitude]="m.lng"
         [markerDraggable]="m.draggable" ></sebm-google-map-marker> 
       </sebm-google-map>
       <router-outlet></router-outlet>
-      <div fxLayoutAlign="space-around center" fxLayout="column" fxFlex="10" class="three"> 
-        <button md-raised-button>add discounts</button>
-      </div>
+      <!-- <div fxLayoutAlign="space-around center" fxLayout="column" fxFlex="10" class="three"> --> 
+      <!--   <button md-raised-button>add discounts</button> -->
+      <!-- </div> -->
 		</div>
   </md-sidenav-container>
+  <!-- <place-detail></place-detail> -->
   <md-menu #themeMenu x-position="before">
-    <button md-menu-item (click)="isDarkTheme = !isDarkTheme">Toggle Theme</button>
-    <button md-menu-item (click)="changePlaceType('cafe')">cafe</button>
-    <button md-menu-item (click)="changePlaceType('bar')">bar</button>
-    <button md-menu-item (click)="changePlaceType('bakery')">bakery</button>
+    <button md-menu-item (click)="changePlaceType(placeType.cafe)">cafe</button>
+    <button md-menu-item (click)="changePlaceType(placeType.bar)">bar</button>
+    <button md-menu-item (click)="changePlaceType(placeType.bakery)">bakery</button>
   </md-menu>
 </div>
