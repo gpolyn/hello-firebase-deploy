@@ -18,7 +18,7 @@ import { EstablishmentsService } from '../establishments.service';
 export class PlaceDetailComponent {
 
 	private place: any = {};
-	private placeIsSelected = false;
+	public placeIsSelected = false;
 
 	constructor(private establishmentsSvc: EstablishmentsService) {
     this.establishmentsSvc.getCurrentSelection().subscribe(selection => {
