@@ -14,6 +14,7 @@ import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-br
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
+import { SomeComponent } from './components/some.component';
 import { PlaceDetailComponent } from './components/place-detail.component';
 import { DialogComponent } from './dialog/dialog.component';
 //import { ChoiceComponent } from './choice/choice.component';
@@ -41,6 +42,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
   DialogComponent,
   PlaceDetailComponent,
   VisualizationComponent,
+  SomeComponent,
   BarChartDemoComponent
   ],
   imports: [
