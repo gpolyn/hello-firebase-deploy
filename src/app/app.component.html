@@ -17,9 +17,7 @@
 
   <md-sidenav-container fxFlex>
     <md-sidenav mode="over" (close)="updateMap()" opened="{{sideNavIsOpen}}" #sidenav style="width:120px">
-      <button md-menu-item [class.active]="selectedPlace === placeType.cafe" (click)="changePlaceType(placeType.cafe)">cafe</button>
-      <button md-menu-item [class.active]="selectedPlace === placeType.bar" (click)="changePlaceType(placeType.bar)">bar</button>
-      <button md-menu-item [class.active]="selectedPlace === placeType.bakery" (click)="changePlaceType(placeType.bakery)">bakery</button>
+      <place-types-menu></place-types-menu>
     </md-sidenav>
     <div id='some-id' style="display:none"></div>
     <div class="content" fxLayout="column" fxLayoutGap="6px" fxFlexFill>
