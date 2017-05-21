@@ -1,9 +1,13 @@
-import { ViewChild, Component, OnInit, AfterViewInit } from '@angular/core';
+import { ElementRef, ViewChild, Component, OnInit, AfterViewInit } from '@angular/core';
 import {MdIconRegistry, MdDialog, MdDialogRef} from '@angular/material';
+import { AgmCoreModule } from 'angular2-google-maps/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {DialogComponent} from './dialog/dialog.component';
+import {ChoosePlaceTypeDialogComponent} from './dialog/choose-place-type-dialog.component';
 import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
+import { SebmGoogleMap } from 'angular2-google-maps/core';
 import {EstablishmentsService} from './establishments.service';
+import { MapParametersService } from './map-parameters.service';
 import { SelectedPlaceTypeService } from './selected-place-type.service';
 import {GeoLocationService} from './geolocation.service';
 import { Observable } from 'rxjs/Observable';
@@ -19,23 +23,29 @@ declare var google: any;
 })
 export class AppComponent implements OnInit, AfterViewInit {
 	@ViewChild('agmMap') ag: any;
+	@ViewChild(SebmGoogleMap)
+  private map: SebmGoogleMap;
   placeType = PlaceType;
   latLngBounds: any;
+  mapParams: any;
   lat: number = 51.678418;
+  panToSelection: boolean = false;
   lng: number = 7.809007;
   isDarkTheme = false;
+  geoPos: any;
 	markers: any[] = [];
   private currentGeolocation: any;
   private geo: Observable<any>;
   private iconUrl: any;
   private currentSelectionIsPresent = false;
   selectedPlace: PlaceType;
-  sideNavIsOpen: boolean;
+  sideNavIsOpen: boolean = true;
 
 	constructor(iconRegistry: MdIconRegistry,
 							sanitizer: DomSanitizer, 
 							private dialog: MdDialog, 
               private nearbySearchSvc: GooglePlacesNearbySearchService,
+              private mapParamsSvc: MapParametersService,
               private establishmentsSvc: EstablishmentsService,  
               private selectedPlaceTypeSvc: SelectedPlaceTypeService,
               private geoSvc: GeoLocationService,
@@ -53,7 +63,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.currentSelectionIsPresent = true;
     })
     this.selectedPlaceTypeSvc.get().subscribe(place => { this.selectedPlace = place});
-    this.sideNavIsOpen = true;
   }
 
 
@@ -68,15 +77,23 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.panToSelection = true;
+    // this.openAdminDialog();
+    this.openPlaceTypeChoicePrompt();
   }
 
   private openAdminDialog() {
 		this.dialog.open(DialogComponent).afterClosed()
   }
 
+  private openPlaceTypeChoicePrompt() {
+		this.dialog.open(ChoosePlaceTypeDialogComponent).afterClosed()
+  }
+
   clickedMarker($event: any) {
     console.log('clicked marker', $event)
-    this.establishmentsSvc.setCurrentSelection({place_id: $event});
+    this.toggleSideNav();
+    this.establishmentsSvc.setCurrentSelection($event);
   }
 
 	mapClicked($event: MouseEvent) {
@@ -84,6 +101,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   mapChanged($event: MouseEvent) {
+    console.log("boundsChange", $event);
   }
 
   private promisedSearch(pos: any, placeType: string): Promise<any> {
@@ -96,7 +114,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.nearbySearchSvc.searchRankedByDistance(pos, <PlaceType>placeType).toPromise().then( data => {
         data.forEach( ( result, i ) => {
           if (i < 10) bounds.extend(result.geometry.location);
-          markers.push({iconUrl: this.iconUrl.red, label: '', place_id: result.place_id, lat: result.geometry.location.lat, lng: result.geometry.location.lng });
+          markers.push({name:result.name, iconUrl: this.iconUrl.red, label: '', place_id: result.place_id, lat: result.geometry.location.lat, lng: result.geometry.location.lng });
         }); // forEach
 
         resolve({bound: bounds, markers: markers});
@@ -127,19 +145,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.nearbySearchSvc.someFunc(pos, <PlaceType>placeType).subscribe(data => {
       console.log('result of someFunc', data);
       const newMarkers = [];
-      /*
-      data.places.forEach( ( result, i ) => {
-        newMarkers.push({iconUrl: this.iconUrl.red, label: '', place_id: result.place_id, lat: result.geometry.location.lat, lng: result.geometry.location.lng });
-      }); // forEach
-      */
       data.nearbyPlaces.forEach( ( result, i ) => {
-        newMarkers.push({iconUrl: this.iconUrl.red, label: '', place_id: result.place_id, lat: result.geometry.location.lat, lng: result.geometry.location.lng });
+        newMarkers.push({name: result.name, iconUrl: this.iconUrl.red, label: '', place_id: result.place_id, lat: result.geometry.location.lat, lng: result.geometry.location.lng });
       }); // forEach
-      /*
-      data.radarSearch.forEach( ( result, i ) => {
-        newMarkers.push({iconUrl: this.iconUrl.redDot, label: '', place_id: result.place_id, lat: result.geometry.location.lat, lng: result.geometry.location.lng });
-      }); // forEach
-      */
       this.markers.length = 0;
       this.markers = newMarkers;
       this.markers.push({iconUrl: this.iconUrl.greenDot, lat: pos.lat, lng: pos.lng, draggable: false});
@@ -148,7 +156,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
 	ngOnInit(): void {
-      
+
       this.geoSvc.getLocation().toPromise().then(position => {
         const coords = position.coords;
         this.lat = coords.latitude;
@@ -162,6 +170,32 @@ export class AppComponent implements OnInit, AfterViewInit {
           this.markers.push({iconUrl: this.iconUrl.greenDot, lat: pos.lat, lng: pos.lng, draggable: false});
         });
       }).catch(err => console.log(err));
+      this.mapParamsSvc.get().subscribe(mapParams => {
+        console.log('mapParams', mapParams);
+        this.mapParams = mapParams;
+        this.lat = mapParams.lat;
+        this.lng = mapParams.lng;
+      })
+  }
+
+
+
+  handleOpen(data: any) {
+    console.log('map opened!', data);
+  }
+
+  updateMap(){
+    console.log('updateMap', this.mapParams);
+    this.map.triggerResize().then(result => {
+      console.log('geolocation', this.currentGeolocation)
+      if (this.mapParams){
+        this.lat = this.mapParams.lat;
+        this.lng = this.mapParams.lng;
+      } else {
+        this.lat = this.currentGeolocation.coords.latitude;
+        this.lng = this.currentGeolocation.coords.longitude;
+      }
+    });
   }
 
 

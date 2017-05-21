@@ -16,7 +16,7 @@
   </md-toolbar>
 
   <md-sidenav-container fxFlex>
-    <md-sidenav mode="side" opened="sideNavIsOpen" #sidenav style="width:120px">
+    <md-sidenav mode="over" (close)="updateMap()" opened="{{sideNavIsOpen}}" #sidenav style="width:120px">
       <button md-menu-item [class.active]="selectedPlace === placeType.cafe" (click)="changePlaceType(placeType.cafe)">cafe</button>
       <button md-menu-item [class.active]="selectedPlace === placeType.bar" (click)="changePlaceType(placeType.bar)">bar</button>
       <button md-menu-item [class.active]="selectedPlace === placeType.bakery" (click)="changePlaceType(placeType.bakery)">bakery</button>
@@ -27,7 +27,7 @@
         <sebm-google-map-marker 
         *ngFor="let m of markers; let i = index"
         [label]="m.label"                       
-        (markerClick)="clickedMarker(m.place_id)"
+        (markerClick)="clickedMarker(m)"
         [latitude]="m.lat"
         [iconUrl]="m.iconUrl"
         [longitude]="m.lng"
@@ -41,7 +41,7 @@
   </md-sidenav-container>
   <!-- <place-detail></place-detail> -->
   <md-menu #themeMenu x-position="before">
-    <button md-menu-item (click)="changePlaceType(placeType.cafe)">cafe</button>
+    <button md-menu-item (click)="agmMap.triggerResize(true); updateMap()">resize</button>
     <button md-menu-item (click)="changePlaceType(placeType.bar)">bar</button>
     <button md-menu-item (click)="changePlaceType(placeType.bakery)">bakery</button>
   </md-menu>

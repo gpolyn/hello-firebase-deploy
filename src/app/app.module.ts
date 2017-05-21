@@ -17,11 +17,13 @@ import { AppComponent } from './app.component';
 import { SomeComponent } from './components/some.component';
 import { PlaceDetailComponent } from './components/place-detail.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { ChoosePlaceTypeDialogComponent } from './dialog/choose-place-type-dialog.component';
 //import { ChoiceComponent } from './choice/choice.component';
 import { ChoiceModule } from './choice/choice.module';
 import { VisualizationComponent } from './visualizations/visualization.component';
 import { BarChartDemoComponent } from './visualizations/bar-chart-demo.component';
 import { EstablishmentsService } from './establishments.service';
+import { MapParametersService } from './map-parameters.service';
 import { GeoLocationService } from './geolocation.service';
 import { GooglePlacesService } from './google-places.service';
 import { HourlyDataService } from './hourly-data.service';
@@ -40,6 +42,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
   declarations: [
   AppComponent,
   DialogComponent,
+  ChoosePlaceTypeDialogComponent,
   PlaceDetailComponent,
   VisualizationComponent,
   SomeComponent,
@@ -66,13 +69,14 @@ export class MyHammerConfig extends HammerGestureConfig  {
 									useClass: MyHammerConfig 
                   }, 
                   GooglePlacesService, 
+                  MapParametersService,
                   SelectedPlaceTypeService,
                   GooglePlacesRadarSearchService,  
                   GooglePlacesNearbySearchService,  
                   HourlyDataService,
                   GeoLocationService,
                   EstablishmentsService],
-  entryComponents: [DialogComponent],
+  entryComponents: [DialogComponent, ChoosePlaceTypeDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
