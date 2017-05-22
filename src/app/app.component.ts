@@ -29,9 +29,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   latLngBounds: any;
   mapHeightPercentage: number = 40;
   mapParams: any;
-  lat: number = 51.678418;
+  //  lat: number = 51.678418;
+  // lng: number = 7.809007;
+  lat: number;
+  lng: number;
   panToSelection: boolean = false;
-  lng: number = 7.809007;
   isDarkTheme = false;
   geoPos: any;
 	markers: any[] = [];
@@ -65,6 +67,12 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.currentSelectionIsPresent = true;
     })
     this.selectedPlaceTypeSvc.get().subscribe(place => { this.selectedPlace = place});
+    mapParamsSvc.get().subscribe(mapParams => {
+      console.log('mapParams', mapParams);
+      this.mapParams = mapParams;
+      this.lat = mapParams.lat;
+      this.lng = mapParams.lng;
+    })
   }
 
 
@@ -168,12 +176,6 @@ export class AppComponent implements OnInit, AfterViewInit {
           this.markers.push({iconUrl: this.iconUrl.greenDot, lat: pos.lat, lng: pos.lng, draggable: false});
         });
       }).catch(err => console.log(err));
-      this.mapParamsSvc.get().subscribe(mapParams => {
-        console.log('mapParams', mapParams);
-        this.mapParams = mapParams;
-        this.lat = mapParams.lat;
-        this.lng = mapParams.lng;
-      })
   }
 
 

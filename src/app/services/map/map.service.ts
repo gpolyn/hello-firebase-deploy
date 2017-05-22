@@ -15,7 +15,7 @@ export class MapParametersService {
     console.log('config', config);
     this.set({lat: config.latitude, lng: config.longitude});
   }
-  
+
   set(params: MapParams): void {
     console.log('MapParametersService.set', params);
     this.subject.next(params);
