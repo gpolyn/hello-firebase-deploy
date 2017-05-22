@@ -32,6 +32,7 @@ import { HourlyDataService } from './hourly-data.service';
 import { GooglePlacesRadarSearchService } from './google-places-radar-search.service';
 import { GooglePlacesNearbySearchService } from './google-places-nearby-search.service';
 import { SelectedPlaceTypeService } from './selected-place-type.service';
+import { MapComponent } from './components/map/map.component';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
@@ -49,7 +50,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
   VisualizationComponent,
   SomeComponent,
   PlaceTypesMenuComponent,
-  BarChartDemoComponent
+  BarChartDemoComponent,
+  MapComponent
   ],
   imports: [
     BrowserModule,
