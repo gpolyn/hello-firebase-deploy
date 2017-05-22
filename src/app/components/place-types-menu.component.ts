@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PlaceType } from '../place-types';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { SelectedPlaceTypeService } from '../selected-place-type.service';
 
 @Component({
@@ -29,7 +30,10 @@ export class PlaceTypesMenuComponent {
 
   private selectedType: PlaceType;
 
-  constructor(private selectedPlaceTypeSvc: SelectedPlaceTypeService){
+  constructor(
+      private selectedPlaceTypeSvc: SelectedPlaceTypeService,
+      private router: Router
+    ){
     this.selectedPlaceTypeSvc.get().subscribe(placeType => {
       this.selectedType = placeType; 
     });
@@ -40,8 +44,9 @@ export class PlaceTypesMenuComponent {
   }
 
   nav(placeType: PlaceType): void {
-    console.log('nav', placeType);
+    console.log('nav', placeType.split(' ').join('-'))
+    const link = placeType.split(' ').join('-');
+    this.router.navigate(['/washington-dc', link]);
   }
-
 
 }

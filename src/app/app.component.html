@@ -16,12 +16,12 @@
   </md-toolbar>
 
   <md-sidenav-container fxFlex>
-    <md-sidenav mode="over" (close)="updateMap()" opened="{{sideNavIsOpen}}" #sidenav style="width:120px">
+    <md-sidenav mode="over" (close)="updateMap()" opened="{{sideNavIsOpen}}" #sidenav style="width:140px">
       <place-types-menu></place-types-menu>
     </md-sidenav>
     <div id='some-id' style="display:none"></div>
     <div class="content" fxLayout="column" fxLayoutGap="6px" fxFlexFill>
-      <sebm-google-map  #agmMap (boundsChange)="mapChanged($event)" (mapClick)="mapClicked($event)" fxFlex="40" class="one" [latitude]="lat" [longitude]="lng" [fitBounds]="latLngBounds">
+      <sebm-google-map  #agmMap (boundsChange)="mapChanged($event)" (mapClick)="mapClicked($event)" fxFlex="{{mapHeightPercentage}}" class="one" [latitude]="lat" [longitude]="lng" [fitBounds]="latLngBounds">
         <sebm-google-map-marker 
         *ngFor="let m of markers; let i = index"
         [label]="m.label"                       
