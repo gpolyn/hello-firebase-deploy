@@ -2,8 +2,8 @@ import { ElementRef, ViewChild, Component, OnInit, AfterViewInit } from '@angula
 import {MdIconRegistry, MdDialog, MdDialogRef} from '@angular/material';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 import {DomSanitizer} from '@angular/platform-browser';
-import {DialogComponent} from './dialog/dialog.component';
 import {ChoosePlaceTypeDialogComponent} from './dialog/choose-place-type-dialog.component';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
 import { SebmGoogleMap } from 'angular2-google-maps/core';
 import {EstablishmentsService} from './establishments.service';
@@ -27,6 +27,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   private map: SebmGoogleMap;
   placeType = PlaceType;
   latLngBounds: any;
+  mapHeightPercentage: number = 40;
   mapParams: any;
   lat: number = 51.678418;
   panToSelection: boolean = false;
@@ -48,6 +49,7 @@ export class AppComponent implements OnInit, AfterViewInit {
               private mapParamsSvc: MapParametersService,
               private establishmentsSvc: EstablishmentsService,  
               private selectedPlaceTypeSvc: SelectedPlaceTypeService,
+              private router: Router,
               private geoSvc: GeoLocationService,
               private gmapsApi: GoogleMapsAPIWrapper){
     // To avoid XSS attacks, the URL needs to be trusted from inside of your application.
@@ -80,10 +82,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.panToSelection = true;
     // this.openAdminDialog();
     this.openPlaceTypeChoicePrompt();
-  }
-
-  private openAdminDialog() {
-		this.dialog.open(DialogComponent).afterClosed()
   }
 
   private openPlaceTypeChoicePrompt() {
