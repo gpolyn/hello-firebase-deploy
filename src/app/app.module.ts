@@ -9,6 +9,7 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
 import {environment} from '../environments/environment'
 import { AppRoutingModule } from './app-routing.module';
 import { ChartsModule } from 'ng2-charts';
+import {INIT_CONFIG, APP_CONFIG} from './config';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 import 'hammerjs';
@@ -66,18 +67,16 @@ export class MyHammerConfig extends HammerGestureConfig  {
     }),
     AppRoutingModule,
   ],
-	providers: [ { 
-									provide: HAMMER_GESTURE_CONFIG, 
-									useClass: MyHammerConfig 
-                  }, 
-                  GooglePlacesService, 
-                  MapParametersService,
-                  SelectedPlaceTypeService,
-                  GooglePlacesRadarSearchService,  
-                  GooglePlacesNearbySearchService,  
-                  HourlyDataService,
-                  GeoLocationService,
-                  EstablishmentsService],
+	providers: [ { provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig }, 
+               { provide: APP_CONFIG, useValue: INIT_CONFIG },
+                GooglePlacesService, 
+                MapParametersService,
+                SelectedPlaceTypeService,
+                GooglePlacesRadarSearchService,  
+                GooglePlacesNearbySearchService,  
+                HourlyDataService,
+                GeoLocationService,
+                EstablishmentsService],
   entryComponents: [DialogComponent, ChoosePlaceTypeDialogComponent],
   bootstrap: [AppComponent]
 })
