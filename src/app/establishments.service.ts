@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import {GooglePlacesService} from './google-places.service';
-import {MapParametersService} from './map-parameters.service';
+import {MapParametersService} from './services';
 import {HourlyDataService} from './hourly-data.service';
 import 'rxjs/add/operator/toPromise';
 

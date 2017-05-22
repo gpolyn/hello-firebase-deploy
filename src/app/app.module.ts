@@ -25,7 +25,7 @@ import { ChoiceModule } from './choice/choice.module';
 import { VisualizationComponent } from './visualizations/visualization.component';
 import { BarChartDemoComponent } from './visualizations/bar-chart-demo.component';
 import { EstablishmentsService } from './establishments.service';
-import { MapParametersService } from './map-parameters.service';
+import { MapParametersService } from './services';
 import { GeoLocationService } from './geolocation.service';
 import { GooglePlacesService } from './google-places.service';
 import { HourlyDataService } from './hourly-data.service';
