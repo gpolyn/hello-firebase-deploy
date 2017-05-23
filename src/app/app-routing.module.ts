@@ -17,18 +17,20 @@ const appRoutes: Routes = [
   { path: 'washington-dc',
     children: [
       {
-        path: '',
+        path: ':place-type',
         component: SomeComponent,
+        /*
         children: [
-              {
-                path: ':place-type/:id',
-                component: BarChartDemoComponent
-              },
-              {
-                path: ':place-type',
-                component: ChoiceComponent
-              }
-            ]
+          {
+            path: ':place-type/:id',
+            component: BarChartDemoComponent
+          },
+          {
+            path: ':place-type',
+            component: ChoiceComponent
+          }
+        ]
+        */
       }
     ]
   },

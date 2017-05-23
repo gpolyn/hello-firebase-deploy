@@ -19,18 +19,8 @@
     <md-sidenav mode="over" (close)="updateMap()" opened="{{sideNavIsOpen}}" #sidenav style="width:140px">
       <place-types-menu></place-types-menu>
     </md-sidenav>
-    <div id='some-id' style="display:none"></div>
     <div class="content" fxLayout="column" fxLayoutGap="6px" fxFlexFill>
-      <sebm-google-map #agmMap (boundsChange)="mapChanged($event)" (mapClick)="mapClicked($event)" fxFlex="{{mapHeightPercentage}}" class="one" [latitude]="lat" [longitude]="lng" [fitBounds]="latLngBounds">
-        <sebm-google-map-marker 
-        *ngFor="let m of markers; let i = index"
-        [label]="m.label"                       
-        (markerClick)="clickedMarker(m)"
-        [latitude]="m.lat"
-        [iconUrl]="m.iconUrl"
-        [longitude]="m.lng"
-        [markerDraggable]="m.draggable" ></sebm-google-map-marker> 
-      </sebm-google-map>
+      <!-- <map></map> -->
       <router-outlet></router-outlet>
       <!-- <div fxLayoutAlign="space-around center" fxLayout="column" fxFlex="10" class="three"> --> 
       <!--   <button md-raised-button>add discounts</button> -->
@@ -39,7 +29,6 @@
   </md-sidenav-container>
   <!-- <place-detail></place-detail> -->
   <md-menu #themeMenu x-position="before">
-    <button md-menu-item (click)="agmMap.triggerResize(true); updateMap()">resize</button>
     <button md-menu-item (click)="changePlaceType(placeType.bar)">bar</button>
     <button md-menu-item (click)="changePlaceType(placeType.bakery)">bakery</button>
   </md-menu>

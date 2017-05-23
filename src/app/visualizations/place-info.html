@@ -1,4 +1,5 @@
 <div class='place-detail' fxLayoutAlign="space-around center" fxLayoutGap="6px" fxLayout="column" fxFlex> 
+  <map></map>
   <md-card class="example-card" fxFlex="62"
     *ngFor="let avatar of barChartData; let idx=index"
     (swipeleft)="swipe(idx, $event.type)" (swiperight)="swipe(idx, $event.type)" 

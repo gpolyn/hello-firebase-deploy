@@ -2,12 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'some-component',
-  template: `
-    <div>
-      <span>some component</span>
-      <router-outlet></router-outlet>
-    </div>
-  `
+  templateUrl: './some.component.html',
+	styleUrls: ['./some.component.css']
 })
 export class SomeComponent {
 

@@ -42,7 +42,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   private iconUrl: any;
   private currentSelectionIsPresent = false;
   selectedPlace: PlaceType;
-  sideNavIsOpen: boolean = true;
+  sideNavIsOpen: boolean = false;
 
 	constructor(iconRegistry: MdIconRegistry,
 							sanitizer: DomSanitizer, 
@@ -52,8 +52,7 @@ export class AppComponent implements OnInit, AfterViewInit {
               private establishmentsSvc: EstablishmentsService,  
               private selectedPlaceTypeSvc: SelectedPlaceTypeService,
               private router: Router,
-              private geoSvc: GeoLocationService,
-              private gmapsApi: GoogleMapsAPIWrapper){
+              private geoSvc: GeoLocationService){
     // To avoid XSS attacks, the URL needs to be trusted from inside of your application.
     const avatarsSafeUrl = sanitizer.bypassSecurityTrustResourceUrl('./assets/avatars.svg');
     this.iconUrl = {greenDot:'./assets/green-dot.png', 
@@ -89,7 +88,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.panToSelection = true;
     // this.openAdminDialog();
-    this.openPlaceTypeChoicePrompt();
+    //this.openPlaceTypeChoicePrompt();
   }
 
   private openPlaceTypeChoicePrompt() {
@@ -186,6 +185,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   updateMap(){
     console.log('updateMap', this.mapParams);
+    /*
     this.map.triggerResize().then(result => {
       console.log('geolocation', this.currentGeolocation)
       if (this.mapParams){
@@ -196,6 +196,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.lng = this.currentGeolocation.coords.longitude;
       }
     });
+    */
   }
 
 
