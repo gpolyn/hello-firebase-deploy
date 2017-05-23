@@ -11,6 +11,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { ChartsModule } from 'ng2-charts';
 import {INIT_CONFIG, APP_CONFIG} from './config';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { SwiperModule, SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { SwipeComponent } from './components/swipe/swipe.component';
 
 import 'hammerjs';
 
@@ -40,6 +42,14 @@ export class MyHammerConfig extends HammerGestureConfig  {
   }
 }
 
+const SWIPER_CONFIG: SwiperConfigInterface = {
+  direction: 'horizontal',
+  threshold: 50,
+  spaceBetween: 5,
+  slidesPerView: 1,
+  centeredSlides: true,
+  keyboardControl: true
+};
 
 @NgModule({
   declarations: [
@@ -50,6 +60,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
   VisualizationComponent,
   SomeComponent,
   PlaceTypesMenuComponent,
+  SwipeComponent,
   BarChartDemoComponent,
   MapComponent
   ],
@@ -63,6 +74,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     FlexLayoutModule,
     MaterialModule,
     BrowserAnimationsModule,
+		SwiperModule.forRoot(SWIPER_CONFIG),
 		AgmCoreModule.forRoot({
       apiKey: environment.google_maps_api_key,
       libraries: ['places']
