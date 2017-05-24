@@ -46,6 +46,9 @@ export class PlaceTypesMenuComponent {
   nav(placeType: PlaceType): void {
     console.log('nav', placeType.split(' ').join('-'))
     const link = placeType.split(' ').join('-');
+    const alt = placeType.split(' ').join('_');
+    console.log('enum', PlaceType[alt]);
+    // this.selectedPlaceTypeSvc.set(placeType);
     this.router.navigate(['/washington-dc', link]);
   }
 

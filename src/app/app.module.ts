@@ -18,6 +18,7 @@ import 'hammerjs';
 
 import { AppComponent } from './app.component';
 import { SomeComponent } from './components/some.component';
+import { AnotherComponent } from './components/test-component/another.component';
 import { PlaceTypesMenuComponent } from './components/place-types-menu.component';
 import { PlaceDetailComponent } from './components/place-detail.component';
 import { DialogComponent } from './dialog/dialog.component';
@@ -27,7 +28,7 @@ import { ChoiceModule } from './choice/choice.module';
 import { VisualizationComponent } from './visualizations/visualization.component';
 import { BarChartDemoComponent } from './visualizations/bar-chart-demo.component';
 import { EstablishmentsService } from './establishments.service';
-import { MapParametersService } from './services';
+import { MapParametersService, PlaceTypeResolverService } from './services';
 import { GeoLocationService } from './geolocation.service';
 import { GooglePlacesService } from './google-places.service';
 import { HourlyDataService } from './hourly-data.service';
@@ -59,6 +60,7 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
   PlaceDetailComponent,
   VisualizationComponent,
   SomeComponent,
+  AnotherComponent,
   PlaceTypesMenuComponent,
   SwipeComponent,
   BarChartDemoComponent,
@@ -85,6 +87,7 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
                { provide: APP_CONFIG, useValue: INIT_CONFIG },
                 GooglePlacesService, 
                 MapParametersService,
+                PlaceTypeResolverService,
                 SelectedPlaceTypeService,
                 GooglePlacesRadarSearchService,  
                 GooglePlacesNearbySearchService,  

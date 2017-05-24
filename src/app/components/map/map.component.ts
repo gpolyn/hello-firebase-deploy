@@ -6,7 +6,15 @@ import {  Component,
         } from '@angular/core';
 import { AppConfig, APP_CONFIG } from '../../config';
 import { MapParametersService } from '../../services';
-import {GeoLocationService} from '../../geolocation.service';
+import { GeoLocationService } from '../../geolocation.service';
+import { GooglePlacesNearbySearchService } from '../../google-places-nearby-search.service';
+import { MapsAPILoader } from 'angular2-google-maps/core';
+import { EstablishmentsService } from '../../establishments.service';
+import { SelectedPlaceTypeService } from '../../selected-place-type.service';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+declare var google: any;
 
 @Component({
   selector: 'map',
@@ -18,7 +26,7 @@ import {GeoLocationService} from '../../geolocation.service';
     }
   `],
   template: `
-    <sebm-google-map #agmMap (boundsChange)="boundsChange($event)" fxFlexFill [latitude]="lat" [longitude]="lng">
+    <sebm-google-map #agmMap [zoom]="zoom" (boundsChange)="boundsChange($event)" fxFlexFill [latitude]="lat" [longitude]="lng">
       <sebm-google-map-marker 
         *ngFor="let m of markers"
         [label]="m.label"                       
@@ -28,6 +36,15 @@ import {GeoLocationService} from '../../geolocation.service';
         [longitude]="m.lng"
         [markerDraggable]="m.draggable" >
       </sebm-google-map-marker> 
+      <sebm-google-map-marker 
+        *ngIf="currentGeolocationMarker"
+        [label]="currentGeolocationMarker.label"                       
+        (markerClick)="clickedMarker(currentGeolocationMarker)"
+        [latitude]="currentGeolocationMarker.lat"
+        [iconUrl]="currentGeolocationMarker.iconUrl"
+        [longitude]="currentGeolocationMarker.lng"
+        [markerDraggable]="currentGeolocationMarker.draggable" >
+      </sebm-google-map-marker> 
     </sebm-google-map>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -35,62 +52,120 @@ import {GeoLocationService} from '../../geolocation.service';
 export class MapComponent implements OnInit {
 
   markers: any[];
-  //lat: number;
-  //lng: number;
+  currentGeolocationMarker: any;
+  private iconUrl: any;
   lat: number = 51.678418;
   lng: number = 7.809007;
   latLngBounds: any;
+  zoom: number = 18;
   mapHeightPercentage: number;
+  bounds$: Subject<any>;
+  private bounds: any;
+  private placesService: any;
+  private type: any;
 
   constructor(
     private ngZone: NgZone,
     private ref: ChangeDetectorRef,
+    private nearbySearchSvc: GooglePlacesNearbySearchService,
+    private establishmentsSvc: EstablishmentsService,  
+    private selectedTypeSvc: SelectedPlaceTypeService,
     private geoSvc: GeoLocationService,
+    private mapsAPILoader: MapsAPILoader,
     private mapParamsSvc: MapParametersService
   ) {
     this.markers = [];
+    this.bounds$ = new Subject<any>();
+    this.iconUrl = {greenDot:'./assets/green-dot.png', 
+                    red:'./assets/red.png',
+                    redDot:'./assets/red-dot.png'};
     this.mapHeightPercentage = 40;
-    mapParamsSvc.get().subscribe(params => {
-      console.log('mapParams', params);
-      this.lat = params.lat;
-      this.lng = params.lng;
-    })
-    /*
-    this.geoSvc.getLocation().toPromise().then(position => {
-      console.log('crap', position)
-      const coords = position.coords;
-      this.lat = coords.latitude;
-      this.lng = coords.longitude;
+
+    this.selectedTypeSvc.get().subscribe(type => { 
+      this.type = type;
+      this.otherFunc(this.bounds);
     });
-    */
+  }
+
+
+  private otherFunc(newBounds: any) {
+    if (this.type === undefined) {
+      return;
+    } 
+    const request = {
+      bounds: newBounds,
+      type: [this.type]
+    }
+
+    const promisedSearch = new Promise(( resolve, reject) => {
+      // you may need to make this available as a service, because it won't work at first
+      this.placesService.nearbySearch(request, results => {
+        const placeMarkers = results.map( place => {
+          return {
+            lat: place.geometry.location.lat(), 
+            lng: place.geometry.location.lng(), 
+            draggable: false
+          };
+        });
+        resolve(placeMarkers);
+      });
+    });
+
+    promisedSearch.then( results => {
+      this.ngZone.run(() => {
+        this.ref.markForCheck();
+        this.markers = (<any>Object).values(results);
+      });
+    });
+
   }
 
   ngOnInit() {
-      this.geoSvc.getLocation().subscribe(position => {
-      //this.geoSvc.getLocation().toPromise().then(position => {
-        this.ngZone.run(() => {
-          this.ref.markForCheck();
-          console.log('position', position);
-          const coords = position.coords;
-          this.lat = coords.latitude;
-          this.lng = coords.longitude;
-        });
-
-        /*
-        const pos = {lat: this.lat, lng: this.lng};
-        this.promisedSearch(pos, 'cafe').then( result => {
-          this.markers.length = 0;
-          this.latLngBounds = result.bound;
-          this.markers = result.markers;
-          this.markers.push({iconUrl: this.iconUrl.greenDot, lat: pos.lat, lng: pos.lng, draggable: false});
-        });
-        */
+    this.geoSvc.getLocation().subscribe(position => {
+      this.ngZone.run(() => {
+        this.ref.markForCheck();
+        const coords = position.coords;
+        this.lat = coords.latitude;
+        this.lng = coords.longitude;
+        this.addCurrentLocationMarker({lat: this.lat, lng: this.lng});
+        this.zoom = 12;
       });
-      // }).catch(err => console.log(err));
+    });
+
+    this.mapsAPILoader.load().then(() => {
+      const container = document.createElement('div');
+      this.placesService = new google.maps.places.PlacesService(container);
+      this.bounds$.debounceTime(300)
+                 .distinctUntilChanged()
+                 .subscribe( newBounds => {
+                    this.otherFunc(newBounds);
+                 });
+
+    });
+
   }
 
   boundsChange($event: MouseEvent) {
-    console.log("boundsChange", $event);
+    this.bounds = $event;
+    this.bounds$.next($event);
+  }
+
+  private addPlacesMarkers(places: any[]): void {
+    const currentMarker = this.markers.find( marker => {
+      return ( marker.iconUrl === this.iconUrl.greenDot );
+    })
+  }
+
+  private addCurrentLocationMarker(pos: any): void {
+
+    const geoMarker = {
+      iconUrl: this.iconUrl.greenDot, 
+      lat: pos.lat, 
+      lng: pos.lng, 
+      draggable: false
+    };
+
+    this.currentGeolocationMarker = geoMarker;
   }
 
 }

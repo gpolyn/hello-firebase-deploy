@@ -168,12 +168,14 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.lng = coords.longitude;
         const pos = {lat: this.lat, lng: this.lng};
 
+        /*
         this.promisedSearch(pos, 'cafe').then( result => {
           this.markers.length = 0;
           this.latLngBounds = result.bound;
           this.markers = result.markers;
           this.markers.push({iconUrl: this.iconUrl.greenDot, lat: pos.lat, lng: pos.lng, draggable: false});
         });
+        */
       }).catch(err => console.log(err));
   }
 

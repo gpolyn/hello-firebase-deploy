@@ -20,7 +20,9 @@
       <place-types-menu></place-types-menu>
     </md-sidenav>
     <div class="content" fxLayout="column" fxLayoutGap="6px" fxFlexFill>
-      <!-- <map></map> -->
+      <div fxFlex fxFlexFill>
+        <map></map>
+      </div>
       <router-outlet></router-outlet>
       <!-- <div fxLayoutAlign="space-around center" fxLayout="column" fxFlex="10" class="three"> --> 
       <!--   <button md-raised-button>add discounts</button> -->
@@ -30,6 +32,7 @@
   <!-- <place-detail></place-detail> -->
   <md-menu #themeMenu x-position="before">
     <button md-menu-item (click)="changePlaceType(placeType.bar)">bar</button>
+    <button md-menu-item routerLink="/another">go to another</button>
     <button md-menu-item (click)="changePlaceType(placeType.bakery)">bakery</button>
   </md-menu>
 </div>
