@@ -6,6 +6,7 @@ import { VisualizationComponent } from './visualizations/visualization.component
 import { BarChartDemoComponent } from './visualizations/bar-chart-demo.component';
 
 import { ChoiceComponent } from './choice/choice.component';
+import { PlaceComponent } from './components/place/place.component';
 import { PlaceTypeResolverService, PlaceDetailsResolverService } from './services';
 
 const appRoutes: Routes = [
@@ -16,7 +17,7 @@ const appRoutes: Routes = [
     children: [
       {
         path: ':place-id',
-        component: SomeComponent,
+        component: PlaceComponent,
         resolve: {
           whatevs: PlaceDetailsResolverService
         }

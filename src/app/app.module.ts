@@ -38,6 +38,8 @@ import { GooglePlacesNearbySearchService } from './google-places-nearby-search.s
 import { SelectedPlaceTypeService } from './selected-place-type.service';
 import { MapComponent } from './components/map/map.component';
 import { EstablishmentsService } from './establishments.service';
+import { PlaceDetailsComponent } from './components/place-details/place-details.component';
+import { PlaceComponent } from './components/place/place.component';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
@@ -66,7 +68,9 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
   PlaceTypesMenuComponent,
   SwipeComponent,
   BarChartDemoComponent,
-  MapComponent
+  MapComponent,
+  PlaceDetailsComponent,
+  PlaceComponent
   ],
   imports: [
     BrowserModule,
