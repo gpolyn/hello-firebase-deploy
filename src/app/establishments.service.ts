@@ -11,9 +11,10 @@ export class EstablishmentsService {
 
   private subject = new Subject<any>();
 
-  constructor(private placesSvc: GooglePlacesService,
-              private mapParamsSvc: MapParametersService,
-              private hrlyDataSvc: HourlyDataService
+    constructor(
+      private placesSvc: GooglePlacesService,
+      private mapParamsSvc: MapParametersService,
+      private hrlyDataSvc: HourlyDataService
   ){ }
 
   setCurrentSelection(newSelection: any): void {

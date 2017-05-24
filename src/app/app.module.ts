@@ -27,8 +27,9 @@ import { ChoosePlaceTypeDialogComponent } from './dialog/choose-place-type-dialo
 import { ChoiceModule } from './choice/choice.module';
 import { VisualizationComponent } from './visualizations/visualization.component';
 import { BarChartDemoComponent } from './visualizations/bar-chart-demo.component';
-import { EstablishmentsService } from './establishments.service';
-import { MapParametersService, PlaceTypeResolverService } from './services';
+import { MapParametersService, 
+         PlaceDetailsResolverService,
+         PlaceTypeResolverService } from './services';
 import { GeoLocationService } from './geolocation.service';
 import { GooglePlacesService } from './google-places.service';
 import { HourlyDataService } from './hourly-data.service';
@@ -36,6 +37,7 @@ import { GooglePlacesRadarSearchService } from './google-places-radar-search.ser
 import { GooglePlacesNearbySearchService } from './google-places-nearby-search.service';
 import { SelectedPlaceTypeService } from './selected-place-type.service';
 import { MapComponent } from './components/map/map.component';
+import { EstablishmentsService } from './establishments.service';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
@@ -88,12 +90,14 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
                 GooglePlacesService, 
                 MapParametersService,
                 PlaceTypeResolverService,
+                PlaceDetailsResolverService,
                 SelectedPlaceTypeService,
                 GooglePlacesRadarSearchService,  
                 GooglePlacesNearbySearchService,  
                 HourlyDataService,
                 GeoLocationService,
-                EstablishmentsService],
+                EstablishmentsService,
+                ],
   entryComponents: [DialogComponent, ChoosePlaceTypeDialogComponent],
   bootstrap: [AppComponent]
 })

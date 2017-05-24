@@ -12,6 +12,7 @@ import { MapsAPILoader } from 'angular2-google-maps/core';
 import { EstablishmentsService } from '../../establishments.service';
 import { SelectedPlaceTypeService } from '../../selected-place-type.service';
 import { Subject } from 'rxjs/Subject';
+import { Router } from '@angular/router';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 declare var google: any;
@@ -71,6 +72,7 @@ export class MapComponent implements OnInit {
     private establishmentsSvc: EstablishmentsService,  
     private selectedTypeSvc: SelectedPlaceTypeService,
     private geoSvc: GeoLocationService,
+    private router: Router,
     private mapsAPILoader: MapsAPILoader,
     private mapParamsSvc: MapParametersService
   ) {
@@ -87,6 +89,11 @@ export class MapComponent implements OnInit {
     });
   }
 
+  clickedMarker(marker: any) {
+    console.log('clicked marker', marker);
+    // this.establishmentsSvc.setCurrentSelection(marker);
+    this.router.navigate(['places', marker.place_id]);
+  }
 
   private otherFunc(newBounds: any) {
     if (this.type === undefined) {
@@ -102,6 +109,7 @@ export class MapComponent implements OnInit {
       this.placesService.nearbySearch(request, results => {
         const placeMarkers = results.map( place => {
           return {
+            place_id: place.place_id,
             lat: place.geometry.location.lat(), 
             lng: place.geometry.location.lng(), 
             draggable: false

@@ -6,7 +6,6 @@ import {ChoosePlaceTypeDialogComponent} from './dialog/choose-place-type-dialog.
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
 import { SebmGoogleMap } from 'angular2-google-maps/core';
-import {EstablishmentsService} from './establishments.service';
 import { MapParametersService } from './services';
 import { SelectedPlaceTypeService } from './selected-place-type.service';
 import {GeoLocationService} from './geolocation.service';
@@ -17,7 +16,7 @@ declare var google: any;
 
 @Component({
   selector: 'app-root',
-	providers: [GoogleMapsAPIWrapper, EstablishmentsService],
+	providers: [GoogleMapsAPIWrapper],
   templateUrl: './app.component.html',
 	styleUrls: ['./app.component.css']
 })
@@ -49,7 +48,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 							private dialog: MdDialog, 
               private nearbySearchSvc: GooglePlacesNearbySearchService,
               private mapParamsSvc: MapParametersService,
-              private establishmentsSvc: EstablishmentsService,  
               private selectedPlaceTypeSvc: SelectedPlaceTypeService,
               private router: Router,
               private geoSvc: GeoLocationService){
@@ -62,9 +60,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     iconRegistry.addSvgIconSetInNamespace('avatars', avatarsSafeUrl);
     this.geo = geoSvc.getLocation();
     this.geo.subscribe(location => this.currentGeolocation = location);
-    this.establishmentsSvc.getCurrentSelection().subscribe(selected => {
-      this.currentSelectionIsPresent = true;
-    })
     this.selectedPlaceTypeSvc.get().subscribe(place => { this.selectedPlace = place});
     mapParamsSvc.get().subscribe(mapParams => {
       console.log('mapParams', mapParams);
@@ -98,7 +93,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   clickedMarker($event: any) {
     console.log('clicked marker', $event)
     this.toggleSideNav();
-    this.establishmentsSvc.setCurrentSelection($event);
   }
 
 	mapClicked($event: MouseEvent) {

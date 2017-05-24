@@ -6,18 +6,23 @@ import { VisualizationComponent } from './visualizations/visualization.component
 import { BarChartDemoComponent } from './visualizations/bar-chart-demo.component';
 
 import { ChoiceComponent } from './choice/choice.component';
-import { PlaceTypeResolverService } from './services';
-
-/*
-import { CanDeactivateGuard }       from './can-deactivate-guard.service';
-import { AuthGuard }                from './auth-guard.service';
-import { SelectivePreloadingStrategy } from './selective-preloading-strategy';
-*/
+import { PlaceTypeResolverService, PlaceDetailsResolverService } from './services';
 
 const appRoutes: Routes = [
   { path: 'choice', component: ChoiceComponent },
   { path: 'chart-that-swipes', component: BarChartDemoComponent },
   { path: 'another', component: AnotherComponent },
+  { path: 'places',
+    children: [
+      {
+        path: ':place-id',
+        component: SomeComponent,
+        resolve: {
+          whatevs: PlaceDetailsResolverService
+        }
+      }
+    ]
+  },
   { path: 'washington-dc',
     children: [
       {
