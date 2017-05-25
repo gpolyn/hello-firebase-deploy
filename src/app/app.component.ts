@@ -181,7 +181,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   updateMap(){
     console.log('updateMap', this.mapParams);
-    /*
+      /*
     this.map.triggerResize().then(result => {
       console.log('geolocation', this.currentGeolocation)
       if (this.mapParams){
@@ -192,7 +192,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.lng = this.currentGeolocation.coords.longitude;
       }
     });
-    */
+      */
   }
 
 

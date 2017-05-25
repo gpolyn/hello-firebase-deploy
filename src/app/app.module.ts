@@ -31,6 +31,7 @@ import { BarChartDemoComponent } from './visualizations/bar-chart-demo.component
 import { MapParametersService, 
          StorageService,
          PlaceDetailsResolverService,
+         RandomTypeRedirectionService,
          PlaceTypeResolverService } from './services';
 import { GeoLocationService } from './geolocation.service';
 import { GooglePlacesService } from './google-places.service';
@@ -42,6 +43,7 @@ import { MapComponent } from './components/map/map.component';
 import { EstablishmentsService } from './establishments.service';
 import { PlaceDetailsComponent } from './components/place-details/place-details.component';
 import { PlaceComponent } from './components/place/place.component';
+import { StarRatingComponent } from './components/star-rating/star-rating.component';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
@@ -73,7 +75,8 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
   BarChartDemoComponent,
   MapComponent,
   PlaceDetailsComponent,
-  PlaceComponent
+  PlaceComponent,
+  StarRatingComponent
   ],
   imports: [
     BrowserModule,
@@ -97,6 +100,7 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
                 GooglePlacesService, 
                 MapParametersService,
                 PlaceTypeResolverService,
+                RandomTypeRedirectionService,
                 PlaceDetailsResolverService,
                 StorageService,
                 SelectedPlaceTypeService,

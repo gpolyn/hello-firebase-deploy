@@ -9,18 +9,19 @@ import { EstablishmentsService } from '../../establishments.service';
 @Component({
   selector: 'place-details',
   template: `
-  <md-card>
+  <md-card fxFlex fxFlexFill>
     <md-card-title class='title-card-title'>{{place?.name}}</md-card-title>
-    <md-card-content class='title-card-subtitle'>
+    <md-card-subtitle class='title-card-subtitle'>
       <div style="float:left">
-        <md-icon>star</md-icon>
-        <md-icon>star_half</md-icon>
-        <md-icon>star_border</md-icon>
+        <star-rating [rating]="place?.rating"></star-rating>
+        <!-- <md-icon>star</md-icon> -->
+        <!-- <md-icon>star_half</md-icon> -->
+        <!-- <md-icon>star_border</md-icon> -->
       </div>
       <div style="float:right">
         {{place?.formatted_phone_number}}
       </div>
-    </md-card-content>
+    </md-card-subtitle>
   </md-card>
   `,
   styles: [],

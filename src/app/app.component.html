@@ -21,7 +21,8 @@
       <button md-menu-item routerLink="/another">go to another</button>
       <button md-menu-item (click)="changePlaceType(placeType.bakery)">bakery</button>
     </md-sidenav>
-    <div class="content" fxLayout="column" fxLayoutGap="6px" fxFlexFill>
+    <!-- fxLayoutGap had been 6px -->
+    <div class="content" fxLayout="column" fxLayoutGap="0px" fxFlexFill>
       <div fxFlex fxFlexFill>
         <map></map>
       </div>

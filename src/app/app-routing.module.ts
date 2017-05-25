@@ -7,12 +7,18 @@ import { BarChartDemoComponent } from './visualizations/bar-chart-demo.component
 
 import { ChoiceComponent } from './choice/choice.component';
 import { PlaceComponent } from './components/place/place.component';
-import { PlaceTypeResolverService, PlaceDetailsResolverService } from './services';
+import { RandomTypeRedirectionService, 
+         PlaceTypeResolverService, 
+         PlaceDetailsResolverService } from './services';
 
 const appRoutes: Routes = [
   { path: 'choice', component: ChoiceComponent },
   { path: 'chart-that-swipes', component: BarChartDemoComponent },
   { path: 'another', component: AnotherComponent },
+  { path: '', 
+    component: ChoiceComponent,
+    canActivate: [RandomTypeRedirectionService]
+  },
   { path: 'places',
     children: [
       {
@@ -49,10 +55,6 @@ const appRoutes: Routes = [
   },
   { path: 'swipe', component: VisualizationComponent },
   { path: 'bar-chart', component: BarChartDemoComponent },
-	{ path: '',
-    redirectTo: '/bar-chart',
-    pathMatch: 'full'
-  },
 ]
 
 @NgModule({

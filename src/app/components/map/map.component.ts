@@ -1,10 +1,12 @@
 import {  Component, 
           OnInit, 
           ChangeDetectionStrategy,
+          ViewChild,
           NgZone,
           ChangeDetectorRef
         } from '@angular/core';
 import { AppConfig, APP_CONFIG } from '../../config';
+import { SebmGoogleMap } from 'angular2-google-maps/core';
 import { MapParametersService } from '../../services';
 import { GeoLocationService } from '../../geolocation.service';
 import { GooglePlacesNearbySearchService } from '../../google-places-nearby-search.service';
@@ -12,7 +14,7 @@ import { MapsAPILoader } from 'angular2-google-maps/core';
 import { EstablishmentsService } from '../../establishments.service';
 import { SelectedPlaceTypeService } from '../../selected-place-type.service';
 import { Subject } from 'rxjs/Subject';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 declare var google: any;
@@ -64,6 +66,8 @@ export class MapComponent implements OnInit {
   private bounds: any;
   private placesService: any;
   private type: any;
+	@ViewChild(SebmGoogleMap)
+  private map: SebmGoogleMap;
 
   constructor(
     private ngZone: NgZone,
@@ -71,6 +75,7 @@ export class MapComponent implements OnInit {
     private selectedTypeSvc: SelectedPlaceTypeService,
     private geoSvc: GeoLocationService,
     private router: Router,
+    private route: ActivatedRoute,
     private mapsAPILoader: MapsAPILoader,
     private mapParamsSvc: MapParametersService
   ) {
@@ -90,7 +95,7 @@ export class MapComponent implements OnInit {
   clickedMarker(marker: any) {
     console.log('clicked marker', marker);
     // this.establishmentsSvc.setCurrentSelection(marker);
-    this.router.navigate(['places', marker.place_id]);
+    this.router.navigate(['places', marker.place_id, {lat: marker.lat, lng: marker.lng}]);
   }
 
   private otherFunc(newBounds: any) {
@@ -172,6 +177,12 @@ export class MapComponent implements OnInit {
     };
 
     this.currentGeolocationMarker = geoMarker;
+  }
+  
+  private updateMap(){
+    this.map.triggerResize().then(result => {
+      console.log("triggered resize")
+    });
   }
 
 }
