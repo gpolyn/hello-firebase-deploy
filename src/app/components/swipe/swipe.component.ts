@@ -1,28 +1,48 @@
-import { Component, ViewChild } from '@angular/core';
-
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { EstablishmentsService } from '../../establishments.service';
 import { SwiperComponent, SwiperConfigInterface } from 'ngx-swiper-wrapper';
 
 @Component({
-  //moduleId: module.id + '',
   selector: 'swipe',
   templateUrl: 'swipe.component.html',
   styleUrls: ['swipe.component.css']
 })
-export class SwipeComponent {
-  public slides = [
-    'First slide',
-    'Second slide',
-    'Third slide',
-    'Fourth slide',
-    'Fifth slide',
-    'Sixth slide'
-  ];
+export class SwipeComponent implements OnInit {
 
-  public type: string = 'component';
+  constructor(private establishmentsSvc: EstablishmentsService){}
+
+	currentSelectedDayDigit: number = 0;
+	dayLabel = 'Monday';
+  private dayLabels = [
+    'Sunday', 
+    'Monday', 
+    'Tuesday', 
+    'Wednesday', 
+    'Thursday',
+    'Friday',
+    'Saturday'
+  ];
 
 	public barChartOptions:any = {
     scaleShowVerticalLines: false,
-    responsive: true
+    responsive: true,
+		scales: {
+				yAxes: [{
+						ticks: {
+								callback: function(value, index, values) {
+										return value + '%';
+								}
+						}
+				}]
+		},
+		layout: {
+				padding: {
+						left: 0,
+						right: 0,
+						top: 0,
+						bottom: 0
+				}
+		}
   };
   public barChartLabels:string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
   public barChartType:string = 'bar';
@@ -53,10 +73,20 @@ export class SwipeComponent {
   };
 
   @ViewChild(SwiperComponent) swiperView: SwiperComponent;
+  private hourlyData$: any;
 
   // events
   public chartClicked(e:any):void {
     console.log(e);
+  }
+
+  ngOnInit(){
+    this.establishmentsSvc.getCurrentSelection().subscribe( est => {
+      this.hourlyData$ = est.hourlyData;
+      console.log(est);
+      const newData = this.hourlyData$.map(this.convertData.bind(this));
+      this.barChartData = newData;
+    });
   }
  
   public chartHovered(e:any):void {
@@ -65,23 +95,25 @@ export class SwipeComponent {
 
   onIndexChange(index: number) {
     console.log('Swiper index: ' + index);
+    this.currentSelectedDayDigit = index;
 		this.currentBarChartData = [this.barChartData[index]];
+		this.dayLabel = this.dayLabels[index];
+  }
+
+  private convertData(dailyData: any){
+    const data = {
+      hasData: dailyData.hasData, 
+      data: dailyData.hourlyValues, 
+      label: dailyData.label, 
+      labels: dailyData.hourlyValueLabels, 
+      visible: dailyData.isToday
+    };
+
+    if (dailyData.isToday && dailyData.hasData) {
+      this.barChartLabels = dailyData.hourlyValueLabels;
+      this.currentBarChartData = [data];
+    }
+    return data;
   }
  
-  public randomize():void {
-    // Only Change 3 values
-    let data = [
-      Math.round(Math.random() * 100),
-      59,
-      80,
-      (Math.random() * 100),
-      56,
-      (Math.random() * 100),
-      40];
-    let clone = JSON.parse(JSON.stringify(this.barChartData));
-    clone[0].data = data;
-    this.barChartData = clone;
-  }
-
-
 }

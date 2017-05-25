@@ -24,7 +24,6 @@ export class HourlyDataService {
 
   extractHourlyData(googlePlaceData: any): any[] {
     const periods = googlePlaceData.opening_hours && googlePlaceData.opening_hours.periods;
-    console.log('periods', periods)
     const data: any[] = [];
     for (let i = 0; i < 7; i++){
       data.push({hasData: false});
@@ -44,9 +43,35 @@ export class HourlyDataService {
         newData.hourlyValueLabels.push(open + i);
         newData.hourlyValues.push(getRandInt());
       }
+			newData.hourlyValueLabels = this.convertHourLabels(newData.hourlyValueLabels);
       data[day] = newData;
     });
     return data;
   }
+
+  private convertHourLabels(hourLabels: number[]): string[] {
+		const len = hourLabels.length;
+   	const converted = new Array(len); 
+		converted[0] = this.formatTime(hourLabels[0], true);
+		for ( let i = 1; i < len - 1; i++) {
+			converted[i] = this.formatTime(hourLabels[i]);
+		}
+		converted[len - 1] = this.formatTime(hourLabels[len - 1], true);
+    return converted;
+  }
+
+  private formatTime(hour24: number, addMeridian: boolean = false) {
+
+    let h = hour24 % 12;
+    if (h === 0) h = 12;
+		if (h == 12) addMeridian = true;
+		let hStr = '' + h;
+
+		if (addMeridian) {
+			hStr = hStr + (hour24 < 12 ? 'am' : 'pm');
+		} 
+
+		return hStr;
+	}
   
 }

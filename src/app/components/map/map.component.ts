@@ -68,8 +68,6 @@ export class MapComponent implements OnInit {
   constructor(
     private ngZone: NgZone,
     private ref: ChangeDetectorRef,
-    private nearbySearchSvc: GooglePlacesNearbySearchService,
-    private establishmentsSvc: EstablishmentsService,  
     private selectedTypeSvc: SelectedPlaceTypeService,
     private geoSvc: GeoLocationService,
     private router: Router,

@@ -2,11 +2,12 @@
 
   <div class="horizontal-container" fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="stretch" fxFlex>
 
+			<span style="z-index: 2; text-align: center">{{dayLabel}}</span>
     <!-- <div class="vertical-container" fxLayout="column" fxLayoutAlign="stretch" fxFlex="75%" fxFlex.gt-xs="50%"> -->
 
       <div class="content-container" fxLayout="column" fxLayoutAlign="stretch" fxFlex fxFlexFill>
         <swiper [runInsideAngular]="true" (indexChange)="onIndexChange($event)" overlay-controls [config]="config" >
-          <div *ngFor="let slide of slides" class="swiper-slide" fxLayout="column" fxLayoutAlign="center center">
+          <div *ngFor="let datum of barChartData" class="swiper-slide" fxLayout="column" fxLayoutAlign="center center">
             <canvas baseChart
               [datasets]="currentBarChartData"
               [labels]="barChartLabels"
