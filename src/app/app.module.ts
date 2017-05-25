@@ -28,6 +28,7 @@ import { ChoiceModule } from './choice/choice.module';
 import { VisualizationComponent } from './visualizations/visualization.component';
 import { BarChartDemoComponent } from './visualizations/bar-chart-demo.component';
 import { MapParametersService, 
+         StorageService,
          PlaceDetailsResolverService,
          PlaceTypeResolverService } from './services';
 import { GeoLocationService } from './geolocation.service';
@@ -95,6 +96,7 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
                 MapParametersService,
                 PlaceTypeResolverService,
                 PlaceDetailsResolverService,
+                StorageService,
                 SelectedPlaceTypeService,
                 GooglePlacesRadarSearchService,  
                 GooglePlacesNearbySearchService,  
