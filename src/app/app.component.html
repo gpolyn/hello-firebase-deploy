@@ -4,20 +4,22 @@
     <button md-icon-button (click)="sidenav.toggle()">
       <md-icon>menu</md-icon>
     </button>
-    <span>Angular Map App</span>
 
     <!-- Filler that pushes the menu button to the end of the toolbar -->
     <span fxFlex></span>
 
-    <button md-icon-button [mdMenuTriggerFor]="themeMenu">
-      <md-icon>more_vert</md-icon>
-    </button>
+    <!-- <button color="accent" md-raised-button [md-menu-trigger-for]="themeMenu"> -->
+    <!--   blah -->
+    <!-- </button> -->
+    <place-types-select color="primary"></place-types-select>
 
   </md-toolbar>
 
   <md-sidenav-container fxFlex>
     <md-sidenav mode="over" (close)="updateMap()" opened="{{sideNavIsOpen}}" #sidenav style="width:140px">
-      <place-types-menu></place-types-menu>
+      <button md-menu-item (click)="changePlaceType(placeType.bar)">bar</button>
+      <button md-menu-item routerLink="/another">go to another</button>
+      <button md-menu-item (click)="changePlaceType(placeType.bakery)">bakery</button>
     </md-sidenav>
     <div class="content" fxLayout="column" fxLayoutGap="6px" fxFlexFill>
       <div fxFlex fxFlexFill>
@@ -28,8 +30,6 @@
   </md-sidenav-container>
   <!-- <place-detail></place-detail> -->
   <md-menu #themeMenu x-position="before">
-    <button md-menu-item (click)="changePlaceType(placeType.bar)">bar</button>
-    <button md-menu-item routerLink="/another">go to another</button>
-    <button md-menu-item (click)="changePlaceType(placeType.bakery)">bakery</button>
+    <place-types-menu></place-types-menu>
   </md-menu>
 </div>

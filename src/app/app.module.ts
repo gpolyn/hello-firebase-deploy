@@ -20,6 +20,7 @@ import { AppComponent } from './app.component';
 import { SomeComponent } from './components/some.component';
 import { AnotherComponent } from './components/test-component/another.component';
 import { PlaceTypesMenuComponent } from './components/place-types-menu.component';
+import { PlaceTypesSelectComponent } from './components/place-types-select.component';
 import { PlaceDetailComponent } from './components/place-detail.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { ChoosePlaceTypeDialogComponent } from './dialog/choose-place-type-dialog.component';
@@ -67,6 +68,7 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
   SomeComponent,
   AnotherComponent,
   PlaceTypesMenuComponent,
+  PlaceTypesSelectComponent,
   SwipeComponent,
   BarChartDemoComponent,
   MapComponent,
