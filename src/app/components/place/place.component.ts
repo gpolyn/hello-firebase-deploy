@@ -19,7 +19,7 @@ export class PlaceComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.params.map(parms => parms['lat']).subscribe( lat => console.log({lat: lat}));
+    // this.route.params.map(parms => parms['lat']).subscribe( lat => console.log({lat: lat}));
   }
 
 }

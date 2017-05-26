@@ -1,4 +1,4 @@
-import { Input, Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Input, Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'star-rating',
@@ -11,10 +11,11 @@ import { Input, Component, OnInit, ChangeDetectionStrategy } from '@angular/core
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StarRatingComponent implements OnInit {
+export class StarRatingComponent {
 
   @Input() 
   set rating(rat: number){
+    if (rat === undefined) return;
     const decimal = rat % 1;  
     this.halfStar = decimal > 0;
     this.wholeStars = new Array(Math.floor(rat));
@@ -22,7 +23,5 @@ export class StarRatingComponent implements OnInit {
 
   private wholeStars: any[];
   private halfStar: boolean;
-
-  ngOnInit() { }
 
 }

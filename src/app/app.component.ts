@@ -62,7 +62,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.geo.subscribe(location => this.currentGeolocation = location);
     this.selectedPlaceTypeSvc.get().subscribe(place => { this.selectedPlace = place});
     mapParamsSvc.get().subscribe(mapParams => {
-      console.log('mapParams', mapParams);
       this.mapParams = mapParams;
       this.lat = mapParams.lat;
       this.lng = mapParams.lng;
@@ -75,7 +74,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   changePlaceType(type: string){
-    console.log(type);
     this.toggleSideNav();
     this.getPlacesByType(type);
   }

@@ -83,7 +83,6 @@ export class SwipeComponent implements OnInit {
   ngOnInit(){
     this.establishmentsSvc.getCurrentSelection().subscribe( est => {
       this.hourlyData$ = est.hourlyData;
-      console.log(est);
       const newData = this.hourlyData$.map(this.convertData.bind(this));
       this.barChartData = newData;
     });

@@ -14,7 +14,7 @@ import { MapsAPILoader } from 'angular2-google-maps/core';
 import { EstablishmentsService } from '../../establishments.service';
 import { SelectedPlaceTypeService } from '../../selected-place-type.service';
 import { Subject } from 'rxjs/Subject';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params, NavigationExtras } from '@angular/router';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 declare var google: any;
@@ -29,7 +29,7 @@ declare var google: any;
     }
   `],
   template: `
-    <sebm-google-map #agmMap [zoom]="zoom" (boundsChange)="boundsChange($event)" fxFlexFill [latitude]="lat" [longitude]="lng">
+    <sebm-google-map #agmMap [zoom]="zoom" [usePanning]="usePanning" (boundsChange)="boundsChange($event)" fxFlexFill [latitude]="lat" [longitude]="lng">
       <sebm-google-map-marker 
         *ngFor="let m of markers"
         [label]="m.label"                       
@@ -68,6 +68,7 @@ export class MapComponent implements OnInit {
   private type: any;
 	@ViewChild(SebmGoogleMap)
   private map: SebmGoogleMap;
+  usePanning: boolean;
 
   constructor(
     private ngZone: NgZone,
@@ -90,12 +91,16 @@ export class MapComponent implements OnInit {
       this.type = type;
       this.otherFunc(this.bounds);
     });
+    this.usePanning = true;
   }
 
   clickedMarker(marker: any) {
     console.log('clicked marker', marker);
     // this.establishmentsSvc.setCurrentSelection(marker);
-    this.router.navigate(['places', marker.place_id, {lat: marker.lat, lng: marker.lng}]);
+    const navigationExtras: NavigationExtras = {
+      queryParams: { 'lat': marker.lat, 'lng': marker.lng }
+      };
+    this.router.navigate(['places', marker.place_id], navigationExtras);
   }
 
   private otherFunc(newBounds: any) {
@@ -154,10 +159,31 @@ export class MapComponent implements OnInit {
 
     });
 
+    this.mapParamsSvc.get().subscribe( params => {
+      this.usePanning = true;
+      console.log('map component listening on map params svc', params);
+      if (params.refreshMap){
+        this.map.triggerResize().then( result => {
+          this.ngZone.run(() => {
+            this.ref.markForCheck();
+            if (params.lat) this.lat = params.lat;
+            if (params.lng) this.lng = params.lng;
+          });
+        });
+      } else {
+          this.ngZone.run(() => {
+            this.ref.markForCheck();
+            if (params.lat) this.lat = params.lat;
+            if (params.lng) this.lng = params.lng;
+          });
+      }
+    });
+
   }
 
   boundsChange($event: MouseEvent) {
     this.bounds = $event;
+    console.log('boundsChange', $event);
     this.bounds$.next($event);
   }
 

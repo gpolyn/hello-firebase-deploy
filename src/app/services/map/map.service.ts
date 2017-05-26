@@ -12,12 +12,10 @@ export class MapParametersService {
   constructor(
       @Inject(APP_CONFIG) config: AppConfig
     ){
-    console.log('config', config);
     this.set({lat: config.latitude, lng: config.longitude});
   }
 
   set(params: MapParams): void {
-    console.log('MapParametersService.set', params);
     this.subject.next(params);
   }
 
