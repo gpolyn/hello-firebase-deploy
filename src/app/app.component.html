@@ -8,11 +8,10 @@
     <!-- Filler that pushes the menu button to the end of the toolbar -->
     <span fxFlex></span>
 
-    <!-- <button color="accent" md-raised-button [md-menu-trigger-for]="themeMenu"> -->
-    <!--   blah -->
-    <!-- </button> -->
-    <place-types-select color="primary"></place-types-select>
-
+    {{selectedPlace}}
+    <button md-icon-button [md-menu-trigger-for]="themeMenu">
+      <md-icon>arrow_drop_down_circle</md-icon>
+    </button>
   </md-toolbar>
 
   <md-sidenav-container fxFlex>

@@ -1,0 +1,52 @@
+:host {
+  display: flex;
+  flex: 1;
+}
+
+md-sidenav {
+  width: 320px;
+}
+
+.active {
+  color: #00897b;
+}
+
+/deep/ md-icon.avatar,
+.avatar {
+  overflow: hidden;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin: 12px;
+}
+
+/deep/ .mat-list-item-content {
+  height: auto !important;
+}
+
+.content {
+  padding: 0.75em;
+}
+
+.content button {
+  width: 80%;
+}
+
+.one {
+  background-color: pink;    
+  width:100%;
+  height:100%;
+}
+
+.two {
+  background-color: blue;    
+}
+
+.three {
+  background-color: gray;    
+}
+
+.md-select-panel {
+  height: 600px;
+ //max-height: calc(50vh - 30px); //30px should be the height of the select element
+ }
