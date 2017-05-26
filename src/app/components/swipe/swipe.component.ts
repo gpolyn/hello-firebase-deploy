@@ -25,6 +25,7 @@ export class SwipeComponent implements OnInit {
 
 	public barChartOptions:any = {
     scaleShowVerticalLines: false,
+    defaultFontFamily: "Roboto,'Helvetica Neue',sans-serif",
     responsive: true,
 		scales: {
 				yAxes: [{
