@@ -8,6 +8,7 @@ import { MapParams } from './map-params';
 export class MapParametersService {
 
   private subject = new Subject<MapParams>();
+  readonly DEFAULT_ZOOM: number = 14;
 
   constructor(
       @Inject(APP_CONFIG) config: AppConfig

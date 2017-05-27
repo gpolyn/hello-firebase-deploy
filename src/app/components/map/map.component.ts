@@ -69,6 +69,7 @@ export class MapComponent implements OnInit {
 	@ViewChild(SebmGoogleMap)
   private map: SebmGoogleMap;
   usePanning: boolean;
+  private currentGeoLocation: any;
 
   constructor(
     private ngZone: NgZone,
@@ -138,13 +139,9 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
     this.geoSvc.getLocation().subscribe(position => {
+      this.currentGeoLocation = position.coords;
       this.ngZone.run(() => {
-        this.ref.markForCheck();
-        const coords = position.coords;
-        this.lat = coords.latitude;
-        this.lng = coords.longitude;
-        this.addCurrentLocationMarker({lat: this.lat, lng: this.lng});
-        this.zoom = 12;
+        this.addCurrentLocationMarker();
       });
     });
 
@@ -175,6 +172,7 @@ export class MapComponent implements OnInit {
             this.ref.markForCheck();
             if (params.lat) this.lat = params.lat;
             if (params.lng) this.lng = params.lng;
+            if (params.lng) this.zoom = params.zoom;
           });
       }
     });
@@ -193,7 +191,13 @@ export class MapComponent implements OnInit {
     })
   }
 
-  private addCurrentLocationMarker(pos: any): void {
+  private addCurrentLocationMarker(): void {
+    if (this.currentGeoLocation === undefined) return;
+
+    const pos = {
+      lat: this.currentGeoLocation.latitude,
+      lng: this.currentGeoLocation.longitude
+    };
 
     const geoMarker = {
       iconUrl: this.iconUrl.greenDot, 

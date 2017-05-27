@@ -10,6 +10,12 @@ const GEOLOCATION_ERRORS = {
 
 @Injectable()
 export class GeoLocationService {
+  
+	private _hasLocation: boolean = false;
+
+	get hasLocation(): boolean {
+			return this._hasLocation;
+	}
 
 	/**
    * @author: https://gist.github.com/sasha7/0c32f3686eb49d44ccc8
@@ -32,6 +38,7 @@ export class GeoLocationService {
 			if (window.navigator && window.navigator.geolocation) {
 				window.navigator.geolocation.getCurrentPosition(
 					(position) => {
+						this._hasLocation = true;
 						observer.next(position);
             observer.complete();
 					},

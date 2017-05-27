@@ -77,8 +77,6 @@ export class SwipeComponent implements OnInit {
     paginationClickable: true,
     paginationBulletRender: (swiper, index, className) => {
 			const labels = ['Su', 'M', 'Tu', 'W', 'Tr', 'F', 'Sa'];
-			console.log('classname', className);
-			//return '<span class="'+className+'">' + labels[(index)] + '</span>';
 			const outer = '<span class="swiper-pagination-handle" index="'+index+'">';
 			const inner = '<span class="'+className+'">' + labels[(index)] + '</span>';
 			const outerEnd = '</span>';

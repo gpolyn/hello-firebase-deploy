@@ -30,13 +30,14 @@ export class HourlyDataService {
     }
     if (periods === undefined) return data;
     periods.forEach( period => {
+      if (!( period.open && period.open.time ) || !( period.close && period.close.time )) return;
       const newData = {hasData: true, isToday: false, hourlyValueLabels:[], label: '', hourlyValues:[]};
       const day = period.open.day;
       if (this.day === day) newData.isToday = true;
       newData.label = this.dayLabels[day];
-      if (!( period.open && period.open.time ) || !( period.close && period.close.time )) return;
       const open = Math.floor(Number.parseInt(period.open.time)/100.0);
-      const close = Math.floor(Number.parseInt(period.close.time)/100.0);
+      let close = Math.floor(Number.parseInt(period.close.time)/100.0);
+      close = ( close == 0 ) ? 24 : close;
       const totalHours = close - open;
       const maxVal = 35;
       const getRandInt = () => { return Math.floor(Math.random() * maxVal);};

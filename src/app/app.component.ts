@@ -58,8 +58,10 @@ export class AppComponent implements OnInit, AfterViewInit {
                     redDot:'./assets/red-dot.png'};
 
     iconRegistry.addSvgIconSetInNamespace('avatars', avatarsSafeUrl);
+    /*
     this.geo = geoSvc.getLocation();
     this.geo.subscribe(location => this.currentGeolocation = location);
+    */
     this.selectedPlaceTypeSvc.get().subscribe(place => { this.selectedPlace = place});
     mapParamsSvc.get().subscribe(mapParams => {
       this.mapParams = mapParams;
@@ -154,21 +156,14 @@ export class AppComponent implements OnInit, AfterViewInit {
 
 	ngOnInit(): void {
 
+      /*  
       this.geoSvc.getLocation().toPromise().then(position => {
         const coords = position.coords;
         this.lat = coords.latitude;
         this.lng = coords.longitude;
         const pos = {lat: this.lat, lng: this.lng};
-
-        /*
-        this.promisedSearch(pos, 'cafe').then( result => {
-          this.markers.length = 0;
-          this.latLngBounds = result.bound;
-          this.markers = result.markers;
-          this.markers.push({iconUrl: this.iconUrl.greenDot, lat: pos.lat, lng: pos.lng, draggable: false});
-        });
-        */
       }).catch(err => console.log(err));
+      */
   }
 
 
