@@ -11,7 +11,7 @@ import { EstablishmentsService } from '../../establishments.service';
   template: `
   <md-card fxFlex fxFlexFill>
     <md-card-title class='title-card-title'>{{place?.name}}</md-card-title>
-    <md-card-subtitle class='title-card-subtitle'>
+    <md-card-subtitle fxLayout="row" fxLayoutAlign="space-between center" class='title-card-subtitle'>
       <div style="float:left">
         <star-rating [rating]="place?.rating"></star-rating>
       </div>
