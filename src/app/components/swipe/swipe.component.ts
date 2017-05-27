@@ -33,8 +33,13 @@ export class SwipeComponent implements OnInit {
     scaleShowVerticalLines: false,
     defaultFontFamily: "Roboto,'Helvetica Neue',sans-serif",
     responsive: true,
+    tooltips: {enabled: false},
 		scales: {
+				xAxes: [{
+            gridLines: {display: false}
+				}],
 				yAxes: [{
+            gridLines: {display: true},
 						ticks: {
 								callback: function(value, index, values) {
 										return value + '%';

@@ -29,7 +29,8 @@ declare var google: any;
     }
   `],
   template: `
-    <sebm-google-map #agmMap [zoom]="zoom" [usePanning]="usePanning" (boundsChange)="boundsChange($event)" fxFlexFill [latitude]="lat" [longitude]="lng">
+    <md-spinner color="accent" fxFlex fxFlexFill *ngIf="isSpinning"></md-spinner>
+    <sebm-google-map *ngIf="!isSpinning" #agmMap [zoom]="zoom" [usePanning]="usePanning" (boundsChange)="boundsChange($event)" fxFlexFill [latitude]="lat" [longitude]="lng">
       <sebm-google-map-marker 
         *ngFor="let m of markers"
         [label]="m.label"                       
@@ -70,6 +71,7 @@ export class MapComponent implements OnInit {
   private map: SebmGoogleMap;
   usePanning: boolean;
   private currentGeoLocation: any;
+  public isSpinning: boolean = true;
 
   constructor(
     private ngZone: NgZone,
@@ -105,7 +107,7 @@ export class MapComponent implements OnInit {
   }
 
   private otherFunc(newBounds: any) {
-    if (this.type === undefined) {
+    if (this.type === undefined || this.isSpinning) {
       return;
     } 
     const request = {
@@ -141,6 +143,8 @@ export class MapComponent implements OnInit {
     this.geoSvc.getLocation().subscribe(position => {
       this.currentGeoLocation = position.coords;
       this.ngZone.run(() => {
+        this.ref.markForCheck();
+        this.isSpinning = false;
         this.addCurrentLocationMarker();
       });
     });
@@ -160,13 +164,15 @@ export class MapComponent implements OnInit {
       this.usePanning = true;
       console.log('map component listening on map params svc', params);
       if (params.refreshMap){
-        this.map.triggerResize().then( result => {
-          this.ngZone.run(() => {
-            this.ref.markForCheck();
-            if (params.lat) this.lat = params.lat;
-            if (params.lng) this.lng = params.lng;
+        if (this.map) {
+          this.map.triggerResize().then( result => {
+            this.ngZone.run(() => {
+              this.ref.markForCheck();
+              if (params.lat) this.lat = params.lat;
+              if (params.lng) this.lng = params.lng;
+            });
           });
-        });
+        }
       } else {
           this.ngZone.run(() => {
             this.ref.markForCheck();
