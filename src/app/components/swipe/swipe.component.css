@@ -40,3 +40,26 @@
   background-color: white;
 }
 
+:host /deep/ .weekday-abbrev {
+	width: 24px;
+	height: 24px;
+	display: inline-block;
+	padding: 0px 4px;
+}
+
+:host /deep/ .swiper-pagination-bullet {
+		width: 20px;
+		height: 20px;
+		text-align: center;
+		line-height: 20px;
+		font-size: 14px;
+		color:#000;
+		opacity: 1;
+		background: rgba(255,0,0,0);
+}
+
+:host /deep/     .swiper-pagination-bullet-active {
+        color:#fff;
+        background: #007aff;
+    }
+

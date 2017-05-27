@@ -34,6 +34,7 @@ export class HourlyDataService {
       const day = period.open.day;
       if (this.day === day) newData.isToday = true;
       newData.label = this.dayLabels[day];
+      if (!( period.open && period.open.time ) || !( period.close && period.close.time )) return;
       const open = Math.floor(Number.parseInt(period.open.time)/100.0);
       const close = Math.floor(Number.parseInt(period.close.time)/100.0);
       const totalHours = close - open;
