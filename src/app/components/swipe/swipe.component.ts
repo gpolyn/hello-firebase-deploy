@@ -27,7 +27,7 @@ export class SwipeComponent implements OnInit {
     'Saturday'
   ];
   public chartColors = [
-    {backgroundColor: "#64b5f6", hoverBackgroundColor: "#2196f3"}
+    {backgroundColor: "#6ec6ff", hoverBackgroundColor: "#2196f3"}
   ];
 	public barChartOptions:any = {
     scaleShowVerticalLines: false,

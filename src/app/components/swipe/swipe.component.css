@@ -48,18 +48,19 @@
 }
 
 :host /deep/ .swiper-pagination-bullet {
-		width: 20px;
-		height: 20px;
-		text-align: center;
-		line-height: 20px;
-		font-size: 14px;
-		color:#000;
-		opacity: 1;
-		background: rgba(255,0,0,0);
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54);
+  opacity: 1;
+  background: rgba(255,0,0,0);
 }
 
-:host /deep/     .swiper-pagination-bullet-active {
-        color:#fff;
-        background: #007aff;
-    }
+:host /deep/ .swiper-pagination-bullet-active {
+  color: #2196f3;
+  background: rgba(255,0,0,0);
+  font-weight: 450;
+}
 
