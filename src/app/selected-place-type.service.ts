@@ -33,7 +33,7 @@ export class SelectedPlaceTypeService {
           }
         });
         console.log('selection', selection);
-        if (selection !== undefined) this.set(selection);
+        if (selection !== undefined) this.set(PlaceType[selection]);
       }
     })
   }
