@@ -39,6 +39,10 @@ declare var google: any;
         [iconUrl]="m.iconUrl"
         [longitude]="m.lng"
         [markerDraggable]="m.draggable" >
+				<sebm-google-map-info-window>
+          <strong>{{m.name}}</strong>
+					<div>{{m.vicinity}}</div>
+        </sebm-google-map-info-window>
       </sebm-google-map-marker> 
       <sebm-google-map-marker 
         *ngIf="currentGeolocationMarker"
@@ -123,7 +127,7 @@ export class MapComponent implements OnInit {
             place_id: place.place_id,
             lat: place.geometry.location.lat(), 
             lng: place.geometry.location.lng(), 
-            draggable: false
+            draggable: false, ...place
           };
         });
         resolve(placeMarkers);
@@ -133,7 +137,10 @@ export class MapComponent implements OnInit {
     promisedSearch.then( results => {
       this.ngZone.run(() => {
         this.ref.markForCheck();
-        this.markers = (<any>Object).values(results);
+        this.markers = (<any>Object).values(results).map(item => {
+            item.iconUrl = this.iconUrl.red;
+            return item;
+          });
       });
     });
 
