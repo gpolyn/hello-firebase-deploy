@@ -1,0 +1,70 @@
+@import "~theme.scss";
+
+.box-container {
+  height: 295px;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  background-color: yellow;
+}
+
+.content-container {
+  background-color: #fff;
+}
+
+.horizontal-container {
+  background-color: blue;
+}
+
+.vertical-container {
+  background-color: orange;
+}
+
+.swiper,
+.swiper-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.swiper-slide {
+  width: 100%;
+  background-color: #eee;
+}
+
+.swiper-slide-active {
+  /*
+  color: #fff;
+  background-color: #aaa;
+  */
+  background-color: white;
+}
+
+:host /deep/ .weekday-abbrev {
+	width: 24px;
+	height: 24px;
+	display: inline-block;
+	padding: 0px 4px;
+}
+
+:host /deep/ .swiper-pagination-bullet {
+		width: 20px;
+		height: 20px;
+		text-align: center;
+		line-height: 20px;
+		font-size: 14px;
+		color:#000;
+		opacity: 1;
+		background: rgba(255,0,0,0);
+}
+
+:host /deep/     .swiper-pagination-bullet-active {
+        color:#fff;
+        background: #007aff;
+    }
+:host /deep/ .swiper-pagination-bullet-active {
+  color: yellow; 
+  color: $accent;
+}
