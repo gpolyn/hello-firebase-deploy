@@ -45,6 +45,7 @@ export class HourlyDataService {
         newData.hourlyValueLabels.push(open + i);
         newData.hourlyValues.push(getRandInt());
       }
+      if (newData.hourlyValues.length == 0) newData.hasData = false;
 			newData.hourlyValueLabels = this.convertHourLabels(newData.hourlyValueLabels);
       data[day] = newData;
     });

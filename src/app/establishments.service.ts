@@ -22,6 +22,7 @@ export class EstablishmentsService {
     this.placesSvc.getPlaceData(newSelection.place_id).toPromise().then(result=>{
       const hourlyData = this.hrlyDataSvc.extractHourlyData(result);
       console.log('hourly data', hourlyData);
+      console.log('new selected', newSelection);
       const currentSelection = {...result, hourlyData: hourlyData};
       this.subject.next(currentSelection);
     })

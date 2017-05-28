@@ -1,5 +1,6 @@
 import { Injectable, Inject, forwardRef } from '@angular/core';
 import { EstablishmentsService } from '../../establishments.service';
+import { SelectedPlaceTypeService } from '../../selected-place-type.service';
 import { MapParametersService } from '../map/map.service';
 import { Router, Resolve, RouterStateSnapshot,
          ActivatedRouteSnapshot } from '@angular/router';
@@ -9,6 +10,7 @@ export class PlaceDetailsResolverService implements Resolve<any> {
 
   constructor(
     private mapParamsSvc: MapParametersService,
+    private selectedPlaceTypeSvc: SelectedPlaceTypeService,
     @Inject(forwardRef(() => EstablishmentsService)) private establishmentsSvc: EstablishmentsService,
 		private router: Router
 	) { }
@@ -16,6 +18,7 @@ export class PlaceDetailsResolverService implements Resolve<any> {
 	resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
     console.log('route.params', route.queryParams);
     // console.log('route.state', state);
+    console.log('type is set', this.selectedPlaceTypeSvc.hasType);
     const id = route.params['place-id'];
     const lat = +route.queryParams['lat'];
     const lng = +route.queryParams['lng'];

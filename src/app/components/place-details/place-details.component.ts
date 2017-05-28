@@ -37,6 +37,7 @@ export class PlaceDetailsComponent implements OnInit {
     this.establishmentsSvc.getCurrentSelection().subscribe( place => { 
       this.ngZone.run(() => {
         this.ref.markForCheck();
+        console.log('place', place.types[0]);
         this.place = place; 
       });
     });
