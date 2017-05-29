@@ -4,14 +4,8 @@ import { SwiperComponent, SwiperConfigInterface } from 'ngx-swiper-wrapper';
 
 @Component({
   selector: 'swipe',
-  templateUrl: 'swipe.component.html',
-  styleUrls: ['swipe.component.css']
-  /*
   templateUrl: 'swipe.component.original.html',
   styleUrls: ['swipe.component.original.css']
-  templateUrl: 'chart.component.html',
-  styleUrls: ['chart.component.css']
-  */
 })
 export class SwipeComponent implements OnInit {
 
@@ -42,7 +36,10 @@ export class SwipeComponent implements OnInit {
             gridLines: {display: false}
 				}],
 				yAxes: [{
-            gridLines: {display: true},
+            gridLines: {
+              display: true,
+              drawBorder: false
+            },
 						ticks: {
 								callback: function(value, index, values) {
 										return value + '%';

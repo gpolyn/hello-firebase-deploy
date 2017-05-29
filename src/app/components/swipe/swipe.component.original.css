@@ -26,7 +26,7 @@
   box-shadow:
     0 6px 20px rgba(0, 0, 0, 0.18),
     0 6px 6px rgba(0, 0, 0, 0.25);
-  background-color: #eee;
+  background-color: #fff;
   width: 100%;
 }
 
@@ -38,7 +38,10 @@
 .content-container {
   position: relative;
   overflow: auto;
-  padding: 4px 6px;
+  // padding: 4px 6px;
+  // padding: 8px 12px;
+  padding: 8px 16px;
+  padding-top: 24px;
   // padding: 16px 16px;
   // margin: 8px 16px;
   // margin: 8px 8px;
@@ -82,12 +85,12 @@
 
 .swiper-slide {
   width: 100%;
-  background-color: #eee;
+  background-color: #fff;
 }
 
 .swiper-slide-active {
   color: #fff;
-  background-color: #aaa;
+  background-color: #fff;
 }
 
 .example-card {
@@ -98,3 +101,25 @@
     transform: .5s ease .1s;
     width: inherit;
 }
+
+:host /deep/ .swiper-pagination-bullets.swiper-pagination.swiper-pagination-clickable {
+  //bottom: 10px;
+}
+
+:host /deep/ .swiper-pagination-bullet {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54);
+  opacity: 1;
+  background: rgba(255,0,0,0);
+}
+
+:host /deep/ .swiper-pagination-bullet-active {
+  color: #2196f3;
+  background: rgba(255,0,0,0);
+  font-weight: 450;
+}
+

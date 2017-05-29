@@ -1,27 +1,28 @@
-<div class="box-container" fxLayout="column" >
-<swiper [runInsideAngular]="true" (indexChange)="onIndexChange($event)" overlay-controls [config]="config" fxFlexFill>
-  <div *ngFor="let slide of barChartData" class="swiper-slide" fxLayout="column" fxFlexFill>
-  <!-- <div class="horizontal-container" style="background-color: blue" fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="stretch" fxFlex> -->
+<md-card class="box-container" fxLayout="column" >
+  <swiper [runInsideAngular]="true" (indexChange)="onIndexChange($event)" overlay-controls [config]="config" fxFlexFill>
+    <div *ngFor="let slide of barChartData" class="swiper-slide" fxLayout="column" fxFlexFill>
+    <!-- <div class="horizontal-container" style="background-color: blue" fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="stretch" fxFlex> -->
 
-    <div class="vertical-container" style="background-color: orange" fxLayout="column" fxLayoutAlign="stretch" fxFlex="75%" fxFlex.gt-xs="50%">
+      <div class="vertical-container" style="background-color: orange" fxLayout="column" fxLayoutAlign="stretch" fxFlex="90%" fxFlex.gt-xs="50%">
 
-      <!-- <div class="content-container" fxLayout="column" fxLayoutAlign="stretch" fxFlex fxLayoutAlign="center center"> -->
-      <div class="content-container" fxLayout="column" fxFlex fxLayoutAlign="center center">
-        <!-- <swiper [runInsideAngular]="true" (indexChange)="onIndexChange($event)" overlay-controls [config]="config" > -->
-          <!-- <div *ngFor="let slide of barChartData" class="swiper-slide" fxLayout="column" fxLayoutAlign="center center"> -->
-            <canvas baseChart
-              [datasets]="currentBarChartData"
-              [labels]="barChartLabels"
-              [options]="barChartOptions"
-              [legend]="barChartLegend"
-              [chartType]="barChartType"
-              ></canvas>
-          <!-- </div> -->
-        <!-- </swiper> -->
+        <!-- <div class="content-container" fxLayout="column" fxLayoutAlign="stretch" fxFlex fxLayoutAlign="center center"> -->
+        <div class="content-container" fxLayout="column" fxFlex fxLayoutAlign="center center">
+          <!-- <swiper [runInsideAngular]="true" (indexChange)="onIndexChange($event)" overlay-controls [config]="config" > -->
+            <!-- <div *ngFor="let slide of barChartData" class="swiper-slide" fxLayout="column" fxLayoutAlign="center center"> -->
+              <canvas baseChart
+                [datasets]="currentBarChartData"
+                [labels]="barChartLabels"
+                [options]="barChartOptions"
+                                                                                                 [colors]='chartColors'
+                [legend]="barChartLegend"
+                [chartType]="barChartType"
+                ></canvas>
+            <!-- </div> -->
+          <!-- </swiper> -->
+        </div>
+
       </div>
-
-    </div>
-  <!-- </div> -->
-</div>
-</swiper>
-</div>
+    <!-- </div> -->
+  </div>
+  </swiper>
+</md-card>
