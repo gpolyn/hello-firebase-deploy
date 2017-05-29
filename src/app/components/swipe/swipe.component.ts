@@ -5,7 +5,11 @@ import { SwiperComponent, SwiperConfigInterface } from 'ngx-swiper-wrapper';
 @Component({
   selector: 'swipe',
   templateUrl: 'swipe.component.original.html',
-  styleUrls: ['swipe.component.original.css']
+  styleUrls: ['swipe.component.original.css'],
+  /*
+  templateUrl: 'swipe.component.html',
+  styleUrls: ['swipe.component.css']
+  */
 })
 export class SwipeComponent implements OnInit {
 
@@ -80,6 +84,11 @@ export class SwipeComponent implements OnInit {
     scrollbarSnapOnRelease: true,
     pagination: '.swiper-pagination',
     paginationClickable: true,
+    centeredSlides: true,
+    /*
+    freeMode: true,
+    spaceBetween: 28,
+    */
     paginationBulletRender: (swiper, index, className) => {
 			const labels = ['Su', 'M', 'Tu', 'W', 'Tr', 'F', 'Sa'];
 			const outer = '<span class="swiper-pagination-handle" index="'+index+'">';

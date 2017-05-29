@@ -53,8 +53,6 @@ export class MyHammerConfig extends HammerGestureConfig  {
 
 const SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
-  threshold: 50,
-  spaceBetween: 5,
   slidesPerView: 1,
   centeredSlides: true,
   keyboardControl: true

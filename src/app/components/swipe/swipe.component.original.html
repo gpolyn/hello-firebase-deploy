@@ -9,7 +9,8 @@
         <div class="content-container" fxLayout="column" fxFlex fxLayoutAlign="center center">
           <!-- <swiper [runInsideAngular]="true" (indexChange)="onIndexChange($event)" overlay-controls [config]="config" > -->
             <!-- <div *ngFor="let slide of barChartData" class="swiper-slide" fxLayout="column" fxLayoutAlign="center center"> -->
-              <canvas baseChart
+              <div *ngIf='!slide.hasData' ngFlex><span class='no-data-label'>no hourly data</span></div>
+              <canvas *ngIf='slide.hasData' baseChart
                 [datasets]="currentBarChartData"
                 [labels]="barChartLabels"
                 [options]="barChartOptions"
