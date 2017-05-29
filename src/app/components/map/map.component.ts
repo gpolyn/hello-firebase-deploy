@@ -169,7 +169,7 @@ export class MapComponent implements OnInit {
 
     this.mapParamsSvc.get().subscribe( params => {
       this.usePanning = true;
-      console.log('map component listening on map params svc', params);
+      console.log('map component on mapParamsSvc ', params);
       if (params.refreshMap){
         if (this.map) {
           this.map.triggerResize().then( result => {
@@ -185,7 +185,7 @@ export class MapComponent implements OnInit {
             this.ref.markForCheck();
             if (params.lat) this.lat = params.lat;
             if (params.lng) this.lng = params.lng;
-            if (params.lng) this.zoom = params.zoom;
+            if (params.zoom) this.zoom = params.zoom;
           });
       }
     });
