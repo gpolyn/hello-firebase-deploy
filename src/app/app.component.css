@@ -45,3 +45,8 @@ md-sidenav {
 .three {
   background-color: gray;    
 }
+
+.selected-place-label {
+  font-size: 24px;
+  font-weight: normal;
+}
