@@ -121,7 +121,7 @@ export class SwipeComponent implements OnInit {
   }
 
   onIndexChange(index: number) {
-    console.log('Swiper index: ' + index);
+    // console.log('Swiper index: ' + index);
     this.currentSelectedDayDigit = index;
 		this.currentBarChartData = [this.barChartData[index]];
 		this.dayLabel = this.dayLabels[index];

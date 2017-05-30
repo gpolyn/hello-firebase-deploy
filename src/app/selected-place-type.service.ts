@@ -20,19 +20,17 @@ export class SelectedPlaceTypeService {
     if (lastCategory) this.subject.next(lastCategory);
     establishmentsSvc.getCurrentSelection().subscribe( est => {
       if (!this._hasType) {
-        console.log('SelectedPlaceTypeService', est.types);
-        console.log('SelectedPlaceTypeService', (<any>Object).keys(PlaceType));
+        //console.log('SelectedPlaceTypeService', est.types);
+        // console.log('SelectedPlaceTypeService', (<any>Object).keys(PlaceType));
         let selection: any;
         est.types.forEach(type => {
           for (let item in PlaceType){
             if (item === type) {
-              console.log("eq", item, type)
               selection = item;
             }
             if (selection !== undefined) break;
           }
         });
-        console.log('selection', selection);
         if (selection !== undefined) this.set(PlaceType[selection]);
       }
     })

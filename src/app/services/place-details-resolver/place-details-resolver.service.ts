@@ -16,9 +16,9 @@ export class PlaceDetailsResolverService implements Resolve<any> {
 	) { }
 
 	resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
-    console.log('route.params', route.queryParams);
+  //console.log('route.params', route.queryParams);
     // console.log('route.state', state);
-    console.log('type is set', this.selectedPlaceTypeSvc.hasType);
+    // console.log('type is set', this.selectedPlaceTypeSvc.hasType);
     const id = route.params['place-id'];
     const lat = +route.queryParams['lat'];
     const lng = +route.queryParams['lng'];

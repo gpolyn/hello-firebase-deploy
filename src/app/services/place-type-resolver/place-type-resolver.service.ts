@@ -19,7 +19,7 @@ export class PlaceTypeResolverService implements Resolve<any> {
 
 	resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
     let type = route.params['place-type'];
-		console.log("has location?", this.geoLocationSvc.hasLocation);
+    //console.log("has location?", this.geoLocationSvc.hasLocation);
 		const alt = type.split('-').join('_');
 		this.mapParamsSvc.set({refreshMap: true});
 		this.placeTypeService.set(PlaceType[alt]);

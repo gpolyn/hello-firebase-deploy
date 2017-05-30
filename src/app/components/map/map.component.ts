@@ -9,6 +9,7 @@ import { AppConfig, APP_CONFIG } from '../../config';
 import { SebmGoogleMap } from 'angular2-google-maps/core';
 import { MapParametersService } from '../../services';
 import { GeoLocationService } from '../../geolocation.service';
+import { Observable } from 'rxjs/Observable';
 import { GooglePlacesNearbySearchService } from '../../google-places-nearby-search.service';
 import { MapsAPILoader } from 'angular2-google-maps/core';
 import { EstablishmentsService } from '../../establishments.service';
@@ -29,8 +30,18 @@ declare var google: any;
     }
   `],
   template: `
-    <md-spinner color="accent" fxFlex fxFlexFill *ngIf="isSpinning"></md-spinner>
+    <div fxLayoutAlign="space-around center" fxFlexFill *ngIf="isSpinning">
+      <md-spinner color="accent" fxFlex></md-spinner>
+    </div>
     <sebm-google-map *ngIf="!isSpinning" #agmMap [zoom]="zoom" [usePanning]="usePanning" (boundsChange)="boundsChange($event)" fxFlexFill [latitude]="lat" [longitude]="lng">
+      <sebm-google-map-marker 
+        *ngIf="selectedMarker"
+        [latitude]="selectedMarker.lat"
+        [zIndex]="9"
+        [iconUrl]="iconUrl.blueDot"
+        [longitude]="selectedMarker.lng"
+        [markerDraggable]="false" >
+      </sebm-google-map-marker> 
       <sebm-google-map-marker 
         *ngFor="let m of markers"
         [label]="m.label"                       
@@ -39,16 +50,13 @@ declare var google: any;
         [iconUrl]="m.iconUrl"
         [longitude]="m.lng"
         [markerDraggable]="m.draggable" >
-				<sebm-google-map-info-window>
-          <strong>{{m.name}}</strong>
-					<div>{{m.vicinity}}</div>
-        </sebm-google-map-info-window>
       </sebm-google-map-marker> 
       <sebm-google-map-marker 
         *ngIf="currentGeolocationMarker"
         [label]="currentGeolocationMarker.label"                       
         (markerClick)="clickedMarker(currentGeolocationMarker)"
         [latitude]="currentGeolocationMarker.lat"
+        [zIndex]="10"
         [iconUrl]="currentGeolocationMarker.iconUrl"
         [longitude]="currentGeolocationMarker.lng"
         [markerDraggable]="currentGeolocationMarker.draggable" >
@@ -66,6 +74,7 @@ export class MapComponent implements OnInit {
   lng: number = 7.809007;
   latLngBounds: any;
   zoom: number = 18;
+  selectedMarker: any;
   mapHeightPercentage: number;
   bounds$: Subject<any>;
   private bounds: any;
@@ -83,6 +92,7 @@ export class MapComponent implements OnInit {
     private selectedTypeSvc: SelectedPlaceTypeService,
     private geoSvc: GeoLocationService,
     private router: Router,
+    private establishmentsSvc: EstablishmentsService,
     private route: ActivatedRoute,
     private mapsAPILoader: MapsAPILoader,
     private mapParamsSvc: MapParametersService
@@ -91,6 +101,7 @@ export class MapComponent implements OnInit {
     this.bounds$ = new Subject<any>();
     this.iconUrl = {greenDot:'./assets/green-dot.png', 
                     red:'./assets/red.png',
+                    blueDot:'./assets/blue-dot.png',
                     redDot:'./assets/red-dot.png'};
     this.mapHeightPercentage = 40;
 
@@ -103,6 +114,10 @@ export class MapComponent implements OnInit {
 
   clickedMarker(marker: any) {
     console.log('clicked marker', marker);
+    this.ngZone.run(() => {
+      this.ref.markForCheck();
+      this.selectedMarker = marker;
+    });
     // this.establishmentsSvc.setCurrentSelection(marker);
     const navigationExtras: NavigationExtras = {
       queryParams: { 'lat': marker.lat, 'lng': marker.lng }
@@ -111,7 +126,9 @@ export class MapComponent implements OnInit {
   }
 
   private otherFunc(newBounds: any) {
+  console.log("otherFunc", {lat: this.lat, lng: this.lng, bounds: newBounds});
     if (this.type === undefined || this.isSpinning) {
+      console.log("about to quit out otherfunc")
       return;
     } 
     const request = {
@@ -137,17 +154,31 @@ export class MapComponent implements OnInit {
     promisedSearch.then( results => {
       this.ngZone.run(() => {
         this.ref.markForCheck();
-        this.markers = (<any>Object).values(results).map(item => {
+        console.log('redrawing markers');
+        if (this.selectedMarker){
+          this.markers = (<any>Object).values(results)
+              .filter(marker => {
+                return marker.place_id !== this.selectedMarker.place_id;
+              })
+              .map(item => {
+                item.iconUrl = this.iconUrl.red;
+                return item;
+              });
+        } else {
+          this.markers = (<any>Object).values(results).map(item => {
             item.iconUrl = this.iconUrl.red;
             return item;
           });
+        }
       });
     });
 
   }
 
   ngOnInit() {
+    console.log('ngOnInit');
     this.geoSvc.getLocation().subscribe(position => {
+      console.log('get geoLocation');
       this.currentGeoLocation = position.coords;
       this.ngZone.run(() => {
         this.ref.markForCheck();
@@ -179,6 +210,9 @@ export class MapComponent implements OnInit {
               if (params.lng) this.lng = params.lng;
             });
           });
+        } else {
+          if (params.lat) this.lat = params.lat;
+          if (params.lng) this.lng = params.lng;
         }
       } else {
           this.ngZone.run(() => {
@@ -190,11 +224,20 @@ export class MapComponent implements OnInit {
       }
     });
 
+    this.establishmentsSvc.getCurrentSelection().take(1).subscribe( selected => {
+      console.log('selected location', selected);
+      this.selectedMarker = {
+        lat: selected.geometry.location.lat,
+        lng: selected.geometry.location.lng,
+        ...selected
+        }
+    });
+
   }
 
   boundsChange($event: MouseEvent) {
     this.bounds = $event;
-    console.log('boundsChange', $event);
+    console.log('boundsChange', {isSpinning: this.isSpinning, bounds: $event, lat: this.lat, lng: this.lng});
     this.bounds$.next($event);
   }
 
