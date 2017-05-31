@@ -31,6 +31,7 @@ import { BarChartDemoComponent } from './visualizations/bar-chart-demo.component
 import { MapParametersService, 
          StorageService,
          PlaceDetailsResolverService,
+         WindowRefService, 
          RandomTypeRedirectionService,
          PlaceTypeResolverService } from './services';
 import { GeoLocationService } from './geolocation.service';
@@ -96,6 +97,7 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
 	providers: [ { provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig }, 
                { provide: APP_CONFIG, useValue: INIT_CONFIG },
                 GooglePlacesService, 
+                WindowRefService,
                 MapParametersService,
                 PlaceTypeResolverService,
                 RandomTypeRedirectionService,
