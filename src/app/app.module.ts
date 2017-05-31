@@ -33,8 +33,8 @@ import { MapParametersService,
          SelectedPlaceTypeService,
          WindowRefService, 
          RandomTypeRedirectionService,
+         GeolocationService,
          PlaceTypeResolverService } from './services';
-import { GeoLocationService } from './geolocation.service';
 import { GooglePlacesService } from './google-places.service';
 import { HourlyDataService } from './hourly-data.service';
 import { GooglePlacesRadarSearchService } from './google-places-radar-search.service';
@@ -105,7 +105,7 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
                 GooglePlacesRadarSearchService,  
                 GooglePlacesNearbySearchService,  
                 HourlyDataService,
-                GeoLocationService,
+                GeolocationService,
                 EstablishmentsService,
                 ],
   entryComponents: [DialogComponent],

@@ -8,7 +8,7 @@ import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
 import { SebmGoogleMap } from 'angular2-google-maps/core';
 import { MapParametersService } from './services';
 import { SelectedPlaceTypeService } from './services';
-import {GeoLocationService} from './geolocation.service';
+import {GeolocationService} from './services';
 import { Observable } from 'rxjs/Observable';
 import {GooglePlacesNearbySearchService} from './google-places-nearby-search.service';
 import {PlaceType} from './place-types';
@@ -50,7 +50,7 @@ export class AppComponent implements OnInit, AfterViewInit {
               private mapParamsSvc: MapParametersService,
               private selectedPlaceTypeSvc: SelectedPlaceTypeService,
               private router: Router,
-              private geoSvc: GeoLocationService){
+              private geoSvc: GeolocationService){
     // To avoid XSS attacks, the URL needs to be trusted from inside of your application.
     const avatarsSafeUrl = sanitizer.bypassSecurityTrustResourceUrl('./assets/avatars.svg');
     this.iconUrl = {greenDot:'./assets/green-dot.png', 

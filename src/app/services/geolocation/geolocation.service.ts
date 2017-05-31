@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import { WindowRefService } from './services/window/window-ref.service';
+import { WindowRefService } from '../index';
 
 const GEOLOCATION_ERRORS = {
 	'errors.location.unsupportedBrowser': 'Browser does not support location services',
@@ -10,8 +10,8 @@ const GEOLOCATION_ERRORS = {
 };
 
 @Injectable()
-export class GeoLocationService {
-  
+export class GeolocationService {
+
 	private _hasLocation: boolean = false;
   private nativeWindow: any;
 
@@ -69,7 +69,6 @@ export class GeoLocationService {
 
 		});
 
-
-
 	}
+
 }

@@ -5,7 +5,7 @@ import { Router, Resolve, RouterStateSnapshot,
          ActivatedRouteSnapshot } from '@angular/router';
 import { PlaceType } from '../index';
 import { SelectedPlaceTypeService } from '../index';
-import { GeoLocationService } from '../../geolocation.service';
+import { GeolocationService } from '../index';
 
 @Injectable()
 export class PlaceTypeResolverService implements Resolve<any> {
@@ -13,7 +13,7 @@ export class PlaceTypeResolverService implements Resolve<any> {
   constructor(
 		@Inject(forwardRef(() => SelectedPlaceTypeService)) private placeTypeService: SelectedPlaceTypeService,
     @Inject(forwardRef(() => MapParametersService)) private mapParamsSvc: MapParametersService,
-		private geoLocationSvc: GeoLocationService,
+		@Inject(forwardRef(() => GeolocationService)) private geoLocationSvc: GeolocationService,
 		private router: Router
 	) { }
 

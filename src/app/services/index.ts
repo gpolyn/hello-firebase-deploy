@@ -8,4 +8,4 @@ export { PlaceTypeResolverService } from './place-type-resolver/place-type-resol
 export { PlaceDetailsResolverService } from './place-details-resolver/place-details-resolver.service';
 export { WindowRefService } from './window/window-ref.service';
 export { SelectedPlaceTypeService } from './selected-place-type/selected-place-type.service';
-
+export {GeolocationService} from './geolocation/geolocation.service';

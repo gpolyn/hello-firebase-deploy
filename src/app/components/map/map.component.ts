@@ -8,7 +8,7 @@ import {  Component,
 import { AppConfig, APP_CONFIG } from '../../config';
 import { SebmGoogleMap } from 'angular2-google-maps/core';
 import { MapParametersService, SelectedPlaceTypeService } from '../../services';
-import { GeoLocationService } from '../../geolocation.service';
+import { GeolocationService } from '../../services';
 import { Observable } from 'rxjs/Observable';
 import { GooglePlacesNearbySearchService } from '../../google-places-nearby-search.service';
 import { MapsAPILoader } from 'angular2-google-maps/core';
@@ -89,7 +89,7 @@ export class MapComponent implements OnInit {
     private ngZone: NgZone,
     private ref: ChangeDetectorRef,
     private selectedTypeSvc: SelectedPlaceTypeService,
-    private geoSvc: GeoLocationService,
+    private geoSvc: GeolocationService,
     private router: Router,
     private establishmentsSvc: EstablishmentsService,
     private route: ActivatedRoute,
