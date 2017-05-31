@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'some-component',
+  selector: 'bogus-component',
   templateUrl: './some.component.html',
 	styleUrls: ['./some.component.css']
 })
-export class SomeComponent {
+export class BogusComponent {
 
 }

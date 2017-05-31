@@ -1,6 +1,6 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SomeComponent } from './components/some.component';
+import { BogusComponent } from './components';
 import { AnotherComponent } from './components/test-component/another.component';
 import { VisualizationComponent } from './visualizations/visualization.component';
 
@@ -30,7 +30,7 @@ const appRoutes: Routes = [
     children: [
       {
         path: ':place-type',
-        component: SomeComponent,
+        component: BogusComponent,
         resolve: {
           whatevs: PlaceTypeResolverService
         }
