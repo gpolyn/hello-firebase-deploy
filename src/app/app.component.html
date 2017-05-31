@@ -1,8 +1,11 @@
 <div fxLayout="column" fxFlex [class.dark-theme]="isDarkTheme">
 
   <md-toolbar color="primary">
-    <button md-icon-button (click)="sidenav.toggle()">
-      <md-icon>menu</md-icon>
+    <!-- <button md-icon-button (click)="sidenav.toggle()"> -->
+    <!--   <md-icon>menu</md-icon> -->
+    <!-- </button> -->
+    <button md-icon-button (click)="openPlaceTypeChoicePrompt()">
+      <md-icon>info_outline</md-icon>
     </button>
 
     <!-- Filler that pushes the menu button to the end of the toolbar -->
