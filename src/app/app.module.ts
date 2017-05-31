@@ -22,8 +22,8 @@ import { AnotherComponent } from './components/test-component/another.component'
 import { PlaceTypesMenuComponent } from './components/place-types-menu.component';
 import { PlaceTypesSelectComponent } from './components/place-types-select.component';
 import { PlaceDetailComponent } from './components/place-detail.component';
-import { DialogComponent } from './dialog/dialog.component';
-import { ChoosePlaceTypeDialogComponent } from './dialog/choose-place-type-dialog.component';
+import { DialogComponent } from './components';
+//import { ChoosePlaceTypeDialogComponent } from './dialog/choose-place-type-dialog.component';
 //import { ChoiceComponent } from './choice/choice.component';
 import { ChoiceModule } from './choice/choice.module';
 import { VisualizationComponent } from './visualizations/visualization.component';
@@ -45,6 +45,7 @@ import { EstablishmentsService } from './establishments.service';
 import { PlaceDetailsComponent } from './components/place-details/place-details.component';
 import { PlaceComponent } from './components/place/place.component';
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
+// import { DialogComponent } from './components/dialog/dialog.component';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
@@ -62,8 +63,8 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
 @NgModule({
   declarations: [
   AppComponent,
+  //ChoosePlaceTypeDialogComponent,
   DialogComponent,
-  ChoosePlaceTypeDialogComponent,
   PlaceDetailComponent,
   VisualizationComponent,
   SomeComponent,
@@ -75,7 +76,7 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
   MapComponent,
   PlaceDetailsComponent,
   PlaceComponent,
-  StarRatingComponent
+  StarRatingComponent,
   ],
   imports: [
     BrowserModule,
@@ -110,7 +111,8 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
                 GeoLocationService,
                 EstablishmentsService,
                 ],
-  entryComponents: [DialogComponent, ChoosePlaceTypeDialogComponent],
+                //entryComponents: [ChoosePlaceTypeDialogComponent],
+  entryComponents: [DialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

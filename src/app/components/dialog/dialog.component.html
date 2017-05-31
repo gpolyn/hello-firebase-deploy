@@ -1,0 +1,16 @@
+<h1 md-dialog-title>About</h1>
+<md-dialog-content>
+  <div fxLayout="row" fxLayoutAlign="start center" >
+    <i class="material-icons business-filter-icon">arrow_drop_down_circle</i><span>Show nearby businesses by type</span>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="start center" >
+    <img src="{{iconUrl}}"  class="map-marker" /><span>Click map markers for details</span>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="start center" >
+    <!-- <img src="{{github}}" class="github-link"><span>View source here</span> -->
+    <img src="{{github}}" class="github-link"><button class='github-link-btn' type="button" color="accent" md-button (click)="openWindowOnSource()">Go to source</button>
+  </div>
+</md-dialog-content>
+<md-dialog-actions align="end">
+  <button md-button md-dialog-close type="button" color="accent" >OK</button>
+</md-dialog-actions>
