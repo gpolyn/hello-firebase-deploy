@@ -3,7 +3,6 @@ import {MdIconRegistry, MdDialog, MdDialogRef} from '@angular/material';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import { DialogComponent } from './components';
-// import {ChoosePlaceTypeDialogComponent} from './dialog/choose-place-type-dialog.component';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
 import { SebmGoogleMap } from 'angular2-google-maps/core';
@@ -88,7 +87,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private openPlaceTypeChoicePrompt() {
-  //this.dialog.open(ChoosePlaceTypeDialogComponent).afterClosed()
 		this.dialog.open(DialogComponent).afterClosed()
   }
 
