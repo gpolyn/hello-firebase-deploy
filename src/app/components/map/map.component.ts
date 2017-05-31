@@ -7,13 +7,12 @@ import {  Component,
         } from '@angular/core';
 import { AppConfig, APP_CONFIG } from '../../config';
 import { SebmGoogleMap } from 'angular2-google-maps/core';
-import { MapParametersService } from '../../services';
+import { MapParametersService, SelectedPlaceTypeService } from '../../services';
 import { GeoLocationService } from '../../geolocation.service';
 import { Observable } from 'rxjs/Observable';
 import { GooglePlacesNearbySearchService } from '../../google-places-nearby-search.service';
 import { MapsAPILoader } from 'angular2-google-maps/core';
 import { EstablishmentsService } from '../../establishments.service';
-import { SelectedPlaceTypeService } from '../../selected-place-type.service';
 import { Subject } from 'rxjs/Subject';
 import { Router, ActivatedRoute, Params, NavigationExtras } from '@angular/router';
 import 'rxjs/add/operator/debounceTime';

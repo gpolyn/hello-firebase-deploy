@@ -7,4 +7,5 @@ export { RandomTypeRedirectionService } from './random-type-redirection/random-t
 export { PlaceTypeResolverService } from './place-type-resolver/place-type-resolver.service';
 export { PlaceDetailsResolverService } from './place-details-resolver/place-details-resolver.service';
 export { WindowRefService } from './window/window-ref.service';
+export { SelectedPlaceTypeService } from './selected-place-type/selected-place-type.service';
 

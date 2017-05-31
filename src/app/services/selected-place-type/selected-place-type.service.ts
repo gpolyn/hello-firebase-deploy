@@ -1,9 +1,9 @@
 import { Injectable, forwardRef, Inject } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { PlaceType } from './place-types';
+import { PlaceType } from '../../place-types';
 import { Observable } from 'rxjs/Observable';
-import { StorageService } from './services';
-import { EstablishmentsService } from './establishments.service';
+import { StorageService } from '../index'
+import { EstablishmentsService } from '../../establishments.service';
 
 @Injectable()
 export class SelectedPlaceTypeService {

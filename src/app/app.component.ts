@@ -7,7 +7,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
 import { SebmGoogleMap } from 'angular2-google-maps/core';
 import { MapParametersService } from './services';
-import { SelectedPlaceTypeService } from './selected-place-type.service';
+import { SelectedPlaceTypeService } from './services';
 import {GeoLocationService} from './geolocation.service';
 import { Observable } from 'rxjs/Observable';
 import {GooglePlacesNearbySearchService} from './google-places-nearby-search.service';

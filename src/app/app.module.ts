@@ -31,6 +31,7 @@ import { BarChartDemoComponent } from './visualizations/bar-chart-demo.component
 import { MapParametersService, 
          StorageService,
          PlaceDetailsResolverService,
+         SelectedPlaceTypeService,
          WindowRefService, 
          RandomTypeRedirectionService,
          PlaceTypeResolverService } from './services';
@@ -39,7 +40,6 @@ import { GooglePlacesService } from './google-places.service';
 import { HourlyDataService } from './hourly-data.service';
 import { GooglePlacesRadarSearchService } from './google-places-radar-search.service';
 import { GooglePlacesNearbySearchService } from './google-places-nearby-search.service';
-import { SelectedPlaceTypeService } from './selected-place-type.service';
 import { MapComponent } from './components/map/map.component';
 import { EstablishmentsService } from './establishments.service';
 import { PlaceDetailsComponent } from './components/place-details/place-details.component';

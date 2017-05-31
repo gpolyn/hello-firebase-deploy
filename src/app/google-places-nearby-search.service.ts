@@ -4,7 +4,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { PlaceType } from './place-types';
-import { SelectedPlaceTypeService } from './selected-place-type.service';
+import { SelectedPlaceTypeService } from './services';
 declare var google: any;
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';

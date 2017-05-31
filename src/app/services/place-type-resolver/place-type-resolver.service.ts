@@ -1,18 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, forwardRef } from '@angular/core';
 import { MapParametersService } from '../map/map.service';
 import { Router, Resolve, RouterStateSnapshot,
          NavigationEnd, 
          ActivatedRouteSnapshot } from '@angular/router';
 import { PlaceType } from '../index';
-import { SelectedPlaceTypeService } from '../../selected-place-type.service';
+import { SelectedPlaceTypeService } from '../index';
 import { GeoLocationService } from '../../geolocation.service';
 
 @Injectable()
 export class PlaceTypeResolverService implements Resolve<any> {
 
   constructor(
-		private placeTypeService: SelectedPlaceTypeService,
-    private mapParamsSvc: MapParametersService,
+		@Inject(forwardRef(() => SelectedPlaceTypeService)) private placeTypeService: SelectedPlaceTypeService,
+    @Inject(forwardRef(() => MapParametersService)) private mapParamsSvc: MapParametersService,
 		private geoLocationSvc: GeoLocationService,
 		private router: Router
 	) { }
