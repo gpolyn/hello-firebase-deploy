@@ -1,4 +1,5 @@
 export * from '../config';
+export * from '../../environments/environment';
 export * from '../place-types';
 export { MapParametersService } from './map/map.service';
 export { StorageService } from './storage/localStorage.service';
@@ -9,3 +10,5 @@ export { PlaceDetailsResolverService } from './place-details-resolver/place-deta
 export { WindowRefService } from './window/window-ref.service';
 export { SelectedPlaceTypeService } from './selected-place-type/selected-place-type.service';
 export {GeolocationService} from './geolocation/geolocation.service';
+export {GooglePlacesNearbySearchService} from './places-nearby/google-places-nearby-search.service';
+export {GooglePlacesRadarSearchService} from './places-radar/google-places-radar-search.service';

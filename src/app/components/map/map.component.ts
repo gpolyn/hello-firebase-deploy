@@ -10,7 +10,7 @@ import { SebmGoogleMap } from 'angular2-google-maps/core';
 import { MapParametersService, SelectedPlaceTypeService } from '../../services';
 import { GeolocationService } from '../../services';
 import { Observable } from 'rxjs/Observable';
-import { GooglePlacesNearbySearchService } from '../../google-places-nearby-search.service';
+import { GooglePlacesNearbySearchService } from '../../services';
 import { MapsAPILoader } from 'angular2-google-maps/core';
 import { EstablishmentsService } from '../../establishments.service';
 import { Subject } from 'rxjs/Subject';

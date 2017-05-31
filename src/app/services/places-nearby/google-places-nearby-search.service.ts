@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, forwardRef } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
-import { PlaceType } from './place-types';
-import { SelectedPlaceTypeService } from './services';
+import { PlaceType } from '../index';
+import { SelectedPlaceTypeService } from '../index';
 declare var google: any;
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import {environment} from '../environments/environment'
-import { GooglePlacesRadarSearchService } from './google-places-radar-search.service';
+import {environment} from '../index'
+import { GooglePlacesRadarSearchService } from '../index';
 
 @Injectable()
 export class GooglePlacesNearbySearchService {
@@ -23,7 +23,7 @@ export class GooglePlacesNearbySearchService {
   private data: Observable<any[]>;
 
               
-  constructor(private selectedPlaceSvc: SelectedPlaceTypeService, private http: Http, private radarSearchSvc: GooglePlacesRadarSearchService) {
+  constructor(private selectedPlaceSvc: SelectedPlaceTypeService, private http: Http, @Inject(forwardRef(() => GooglePlacesRadarSearchService)) private radarSearchSvc: GooglePlacesRadarSearchService) {
     this.apiKey = environment.google_maps_api_key;
     this.bh = new BehaviorSubject<any[]>([]);
     this.data = this.bh.asObservable();

@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import {environment} from '../environments/environment'
+import {environment} from '../index';
 
 @Injectable()
 export class GooglePlacesRadarSearchService {

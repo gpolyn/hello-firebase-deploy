@@ -10,7 +10,7 @@ import { MapParametersService } from './services';
 import { SelectedPlaceTypeService } from './services';
 import {GeolocationService} from './services';
 import { Observable } from 'rxjs/Observable';
-import {GooglePlacesNearbySearchService} from './google-places-nearby-search.service';
+import {GooglePlacesNearbySearchService} from './services';
 import {PlaceType} from './place-types';
 declare var google: any;
 

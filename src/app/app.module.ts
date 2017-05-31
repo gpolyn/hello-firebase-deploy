@@ -36,8 +36,8 @@ import { MapParametersService,
          PlaceTypeResolverService } from './services';
 import { GooglePlacesService } from './google-places.service';
 import { HourlyDataService } from './hourly-data.service';
-import { GooglePlacesRadarSearchService } from './google-places-radar-search.service';
-import { GooglePlacesNearbySearchService } from './google-places-nearby-search.service';
+import { GooglePlacesNearbySearchService } from './services';
+import { GooglePlacesRadarSearchService } from './services';
 import { MapComponent } from './components/map/map.component';
 import { EstablishmentsService } from './establishments.service';
 import { PlaceDetailsComponent } from './components/place-details/place-details.component';
@@ -100,8 +100,8 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
                 PlaceDetailsResolverService,
                 StorageService,
                 SelectedPlaceTypeService,
-                GooglePlacesRadarSearchService,  
                 GooglePlacesNearbySearchService,  
+                GooglePlacesRadarSearchService,  
                 HourlyDataService,
                 GeolocationService,
                 EstablishmentsService,
