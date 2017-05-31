@@ -2,7 +2,6 @@ import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BogusComponent } from './components';
 import { AnotherComponent } from './components/test-component/another.component';
-import { VisualizationComponent } from './visualizations/visualization.component';
 
 import { PlaceComponent } from './components/place/place.component';
 import { RandomTypeRedirectionService, 
@@ -36,8 +35,7 @@ const appRoutes: Routes = [
         }
       }
     ]
-  },
-  { path: 'swipe', component: VisualizationComponent },
+  }
 ]
 
 @NgModule({

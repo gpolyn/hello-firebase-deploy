@@ -22,7 +22,6 @@ import { AnotherComponent } from './components/test-component/another.component'
 import { PlaceTypesMenuComponent } from './components/place-types-menu.component';
 import { PlaceTypesSelectComponent } from './components/place-types-select.component';
 import { DialogComponent } from './components';
-import { VisualizationComponent } from './visualizations/visualization.component';
 import { MapParametersService, 
          StorageService,
          PlaceDetailsResolverService,
@@ -58,7 +57,6 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
   declarations: [
   AppComponent,
   DialogComponent,
-  VisualizationComponent,
   BogusComponent,
   AnotherComponent,
   PlaceTypesMenuComponent,
