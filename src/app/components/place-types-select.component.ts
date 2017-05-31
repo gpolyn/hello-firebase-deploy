@@ -44,7 +44,7 @@ export class PlaceTypesSelectComponent {
 
   nav(placeType: PlaceType): void {
     const link = placeType.split(' ').join('-');
-    this.router.navigate(['/washington-dc', link]);
+    this.router.navigate(['/types', link]);
   }
 
 }

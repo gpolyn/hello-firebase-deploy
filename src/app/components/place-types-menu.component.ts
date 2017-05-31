@@ -49,7 +49,7 @@ export class PlaceTypesMenuComponent {
     const alt = placeType.split(' ').join('_');
     console.log('enum', PlaceType[alt]);
     this.selectedPlaceTypeSvc.set(placeType);
-    this.router.navigate(['/washington-dc', link]);
+    this.router.navigate(['/types', link]);
   }
 
 }

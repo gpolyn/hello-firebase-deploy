@@ -26,7 +26,7 @@ const appRoutes: Routes = [
       }
     ]
   },
-  { path: 'washington-dc',
+  { path: 'types',
     children: [
       {
         path: ':place-type',

@@ -32,7 +32,7 @@ export class RandomTypeRedirectionService implements CanActivate {
 
 		// redirect
     const link = type.split('-').join('_');
-    this.router.navigate(['/washington-dc', link]);
+    this.router.navigate(['/types', link]);
 		return true;
   }
 
