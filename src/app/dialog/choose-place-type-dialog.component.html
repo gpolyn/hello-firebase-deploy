@@ -7,7 +7,8 @@
     <img src="{{iconUrl}}"  class="map-marker" /><span>Click map markers for details</span>
   </div>
   <div fxLayout="row" fxLayoutAlign="start center" >
-    <img src="{{github}}" class="github-link"><span>View source here</span>
+    <!-- <img src="{{github}}" class="github-link"><span>View source here</span> -->
+    <img src="{{github}}" class="github-link"><button class='github-link-btn' type="button" color="accent" md-button (click)="openWindowOnSource()">Go to source</button>
   </div>
 </md-dialog-content>
 <md-dialog-actions align="end">

@@ -47,6 +47,6 @@ md-sidenav {
 }
 
 .selected-place-label {
-  font-size: 24px;
+  font-size: larger;
   font-weight: normal;
 }
