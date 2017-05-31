@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { SomeComponent } from './components/some.component';
 import { AnotherComponent } from './components/test-component/another.component';
 import { VisualizationComponent } from './visualizations/visualization.component';
-import { BarChartDemoComponent } from './visualizations/bar-chart-demo.component';
 
 import { ChoiceComponent } from './choice/choice.component';
 import { PlaceComponent } from './components/place/place.component';
@@ -13,7 +12,6 @@ import { RandomTypeRedirectionService,
 
 const appRoutes: Routes = [
   { path: 'choice', component: ChoiceComponent },
-  { path: 'chart-that-swipes', component: BarChartDemoComponent },
   { path: 'another', component: AnotherComponent },
   { path: '', 
     component: ChoiceComponent,
@@ -38,23 +36,10 @@ const appRoutes: Routes = [
         resolve: {
           whatevs: PlaceTypeResolverService
         }
-        /*
-        children: [
-          {
-            path: ':place-type/:id',
-            component: BarChartDemoComponent
-          },
-          {
-            path: ':place-type',
-            component: ChoiceComponent
-          }
-        ]
-        */
       }
     ]
   },
   { path: 'swipe', component: VisualizationComponent },
-  { path: 'bar-chart', component: BarChartDemoComponent },
 ]
 
 @NgModule({

@@ -26,7 +26,6 @@ import { DialogComponent } from './components';
 //import { ChoiceComponent } from './choice/choice.component';
 import { ChoiceModule } from './choice/choice.module';
 import { VisualizationComponent } from './visualizations/visualization.component';
-import { BarChartDemoComponent } from './visualizations/bar-chart-demo.component';
 import { MapParametersService, 
          StorageService,
          PlaceDetailsResolverService,
@@ -69,7 +68,6 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
   PlaceTypesMenuComponent,
   PlaceTypesSelectComponent,
   SwipeComponent,
-  BarChartDemoComponent,
   MapComponent,
   PlaceDetailsComponent,
   PlaceComponent,
