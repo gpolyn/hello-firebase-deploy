@@ -23,8 +23,6 @@ import { PlaceTypesMenuComponent } from './components/place-types-menu.component
 import { PlaceTypesSelectComponent } from './components/place-types-select.component';
 import { PlaceDetailComponent } from './components/place-detail.component';
 import { DialogComponent } from './components';
-//import { ChoiceComponent } from './choice/choice.component';
-import { ChoiceModule } from './choice/choice.module';
 import { VisualizationComponent } from './visualizations/visualization.component';
 import { MapParametersService, 
          StorageService,
@@ -77,7 +75,6 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
     BrowserModule,
     ChartsModule,
     FormsModule,
-    ChoiceModule,
     HttpModule,
 		JsonpModule,
     FlexLayoutModule,

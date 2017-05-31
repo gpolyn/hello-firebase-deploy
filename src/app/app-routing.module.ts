@@ -4,18 +4,16 @@ import { SomeComponent } from './components/some.component';
 import { AnotherComponent } from './components/test-component/another.component';
 import { VisualizationComponent } from './visualizations/visualization.component';
 
-import { ChoiceComponent } from './choice/choice.component';
 import { PlaceComponent } from './components/place/place.component';
 import { RandomTypeRedirectionService, 
          PlaceTypeResolverService, 
          PlaceDetailsResolverService } from './services';
 
 const appRoutes: Routes = [
-  { path: 'choice', component: ChoiceComponent },
   { path: 'another', component: AnotherComponent },
   { path: '', 
-    component: ChoiceComponent,
-    canActivate: [RandomTypeRedirectionService]
+    canActivate: [RandomTypeRedirectionService],
+    children: []
   },
   { path: 'places',
     children: [
