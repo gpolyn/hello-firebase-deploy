@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { PlaceType } from '../place-types';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { PlaceType } from '../index';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { SelectedPlaceTypeService } from '../services';
+import { SelectedPlaceTypeService } from '../../services';
 
 @Component({
   selector: 'place-types-menu',
@@ -13,7 +13,9 @@ import { SelectedPlaceTypeService } from '../services';
       (click)="nav(placeType)">
       {{placeType}}
     </button>
-  `
+  `,
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlaceTypesMenuComponent {
 

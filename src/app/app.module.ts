@@ -19,7 +19,7 @@ import 'hammerjs';
 import { AppComponent } from './app.component';
 import { BogusComponent } from './components';
 import { AnotherComponent } from './components/test-component/another.component';
-import { PlaceTypesMenuComponent } from './components/place-types-menu.component';
+import { PlaceTypesMenuComponent } from './components';
 import { PlaceTypesSelectComponent } from './components/place-types-select.component';
 import { DialogComponent } from './components';
 import { MapParametersService, 
