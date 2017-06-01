@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { PlaceType } from '../place-types';
+import { PlaceType } from '../index';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { SelectedPlaceTypeService } from '../services';
+import { SelectedPlaceTypeService } from '../../services';
 
 @Component({
   selector: 'place-types-select',
