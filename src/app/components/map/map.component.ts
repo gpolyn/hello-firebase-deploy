@@ -3,11 +3,13 @@ import {  Component,
           ChangeDetectionStrategy,
           ViewChild,
           NgZone,
+          Inject,
           ChangeDetectorRef
         } from '@angular/core';
 import { AppConfig, APP_CONFIG } from '../../config';
 import { SebmGoogleMap } from 'angular2-google-maps/core';
 import { MapParametersService, SelectedPlaceTypeService } from '../../services';
+import { DOCUMENT } from '@angular/platform-browser';
 import { GeolocationService } from '../../services';
 import { Observable } from 'rxjs/Observable';
 import { GooglePlacesNearbySearchService } from '../../services';
@@ -88,6 +90,7 @@ export class MapComponent implements OnInit {
   constructor(
     private ngZone: NgZone,
     private ref: ChangeDetectorRef,
+    @Inject(DOCUMENT) private document: any,
     private selectedTypeSvc: SelectedPlaceTypeService,
     private geoSvc: GeolocationService,
     private router: Router,
@@ -187,7 +190,7 @@ export class MapComponent implements OnInit {
     });
 
     this.mapsAPILoader.load().then(() => {
-      const container = document.createElement('div');
+      const container = this.document.createElement('div');
       this.placesService = new google.maps.places.PlacesService(container);
       this.bounds$.debounceTime(300)
                  .distinctUntilChanged()
