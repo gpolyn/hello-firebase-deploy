@@ -24,14 +24,16 @@ export class GooglePlacesService {
     private mapsAPILoader: MapsAPILoader,
     private http: Http) {
     this.apiKey = environment.google_maps_api_key;
-    this.container = this.document.createElement('div');
+    // this.container = this.document.createElement('div');
     this.jsPlacesService().then( svc => { this._jsPlacesService = svc;});
   }
 
   private jsPlacesService(): Promise<any> {
     if (this._jsPlacesService === undefined) {
       const prom = this.mapsAPILoader.load().then(() => {
-        const placesService = new google.maps.places.PlacesService(this.container);
+      //const container = this.document.createElement('div');
+        const container = document.createElement('div');
+        const placesService = new google.maps.places.PlacesService(container);
         return Promise.resolve(placesService);
       });
       return prom;
@@ -41,8 +43,7 @@ export class GooglePlacesService {
   }
 
   getPlaceData(placeId: string): Observable<any> {
-    return this.webServiceMode(placeId);
-    /*
+    // return this.webServiceMode(placeId);
     const request = {placeId: placeId};
     const prom = this.jsPlacesService().then( svc => {
       return new Promise((resolve, reject) => {
@@ -56,7 +57,6 @@ export class GooglePlacesService {
       });
     });
     return Observable.fromPromise(prom);
-    */
   }
 
   private webServiceMode(placeId: string): Observable<any> {
