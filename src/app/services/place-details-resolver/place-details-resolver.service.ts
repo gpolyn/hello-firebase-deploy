@@ -1,5 +1,5 @@
 import { Injectable, Inject, forwardRef } from '@angular/core';
-import { EstablishmentsService } from '../../establishments.service';
+import { EstablishmentsService } from '../index';
 import { SelectedPlaceTypeService } from '../index';
 import { MapParametersService } from '../map/map.service';
 import { Router, Resolve, RouterStateSnapshot,

@@ -49,12 +49,11 @@ import { MapParametersService,
          GooglePlacesNearbySearchService,
          GooglePlacesRadarSearchService, 
          RandomTypeRedirectionService,
+         GooglePlacesService,
+         HourlyDataService,
          GeolocationService,
+         EstablishmentsService,
          PlaceTypeResolverService } from './services';
-import { GooglePlacesService } from './google-places.service';
-import { HourlyDataService } from './hourly-data.service';
-import { EstablishmentsService } from './establishments.service';
-
 
 @NgModule({
   declarations: [

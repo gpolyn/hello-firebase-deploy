@@ -10,5 +10,8 @@ export { PlaceDetailsResolverService } from './place-details-resolver/place-deta
 export { WindowRefService } from './window/window-ref.service';
 export { SelectedPlaceTypeService } from './selected-place-type/selected-place-type.service';
 export {GeolocationService} from './geolocation/geolocation.service';
+export {GooglePlacesService} from './places/google-places.service';
+export {HourlyDataService} from './hourly-data/hourly-data.service';
+export {EstablishmentsService} from './establishments/establishments.service';
 export {GooglePlacesNearbySearchService} from './places-nearby/google-places-nearby-search.service';
 export {GooglePlacesRadarSearchService} from './places-radar/google-places-radar-search.service';

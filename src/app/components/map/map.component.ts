@@ -12,7 +12,7 @@ import { GeolocationService } from '../../services';
 import { Observable } from 'rxjs/Observable';
 import { GooglePlacesNearbySearchService } from '../../services';
 import { MapsAPILoader } from 'angular2-google-maps/core';
-import { EstablishmentsService } from '../../establishments.service';
+import { EstablishmentsService } from '../../services';
 import { Subject } from 'rxjs/Subject';
 import { Router, ActivatedRoute, Params, NavigationExtras } from '@angular/router';
 import 'rxjs/add/operator/debounceTime';

@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { EstablishmentsService } from '../../establishments.service';
+import { EstablishmentsService } from '../../services';
 import { SwiperComponent, SwiperConfigInterface } from 'ngx-swiper-wrapper';
 
 @Component({

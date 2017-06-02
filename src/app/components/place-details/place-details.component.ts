@@ -4,7 +4,7 @@ import {  Component,
           NgZone,
           ChangeDetectorRef
         } from '@angular/core';
-import { EstablishmentsService } from '../../establishments.service';
+import { EstablishmentsService } from '../../services';
 
 @Component({
   selector: 'place-details',

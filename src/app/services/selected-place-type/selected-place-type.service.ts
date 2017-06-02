@@ -3,7 +3,7 @@ import { Subject } from 'rxjs/Subject';
 import { PlaceType } from '../../place-types';
 import { Observable } from 'rxjs/Observable';
 import { StorageService } from '../index'
-import { EstablishmentsService } from '../../establishments.service';
+import { EstablishmentsService } from '../index';
 
 @Injectable()
 export class SelectedPlaceTypeService {
