@@ -21,7 +21,7 @@ export class StarRatingComponent {
     this.wholeStars = new Array(Math.floor(rat));
   }
 
-  private wholeStars: any[];
-  private halfStar: boolean;
+  wholeStars: any[];
+  halfStar: boolean;
 
 }

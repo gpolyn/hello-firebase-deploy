@@ -86,7 +86,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     //this.openPlaceTypeChoicePrompt();
   }
 
-  private openPlaceTypeChoicePrompt() {
+  openPlaceTypeChoicePrompt() {
 		this.dialog.open(DialogComponent).afterClosed()
   }
 

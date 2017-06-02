@@ -26,7 +26,7 @@ export class PlaceTypesSelectComponent {
     PlaceType.store,
   ];
 
-  private selectedType: PlaceType;
+  selectedType: PlaceType;
 
   constructor(
       private selectedPlaceTypeSvc: SelectedPlaceTypeService,
