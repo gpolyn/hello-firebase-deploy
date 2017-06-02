@@ -1,3 +1,4 @@
+// meaningless change
 import { ElementRef, ViewChild, Component, OnInit, AfterViewInit } from '@angular/core';
 import {MdIconRegistry, MdDialog, MdDialogRef} from '@angular/material';
 import { AgmCoreModule } from 'angular2-google-maps/core';
