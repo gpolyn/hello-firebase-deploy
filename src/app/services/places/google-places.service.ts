@@ -15,25 +15,43 @@ export class GooglePlacesService {
 
   private apiKey: string;
   private selection: any;
-  private jsPlacesService: any; 
+  private _jsPlacesService: any; 
+  private promisedPlacesService: Promise<any>;
+  private container: any;
 
   constructor(
     @Inject(DOCUMENT) private document: any,
     private mapsAPILoader: MapsAPILoader,
     private http: Http) {
     this.apiKey = environment.google_maps_api_key;
-    this.mapsAPILoader.load().then(() => {
-      const container = this.document.createElement('div');
-      this.jsPlacesService = new google.maps.places.PlacesService(container);
-    });
+    this.container = this.document.createElement('div');
+    this.jsPlacesService().then( svc => { this._jsPlacesService = svc;});
+  }
+
+  private jsPlacesService(): Promise<any> {
+    if (this._jsPlacesService === undefined) {
+      const prom = this.mapsAPILoader.load().then(() => {
+        const placesService = new google.maps.places.PlacesService(this.container);
+        return Promise.resolve(placesService);
+      });
+      return prom;
+    } else {
+      return Promise.resolve(this._jsPlacesService);
+    }
   }
 
   getPlaceData(placeId: string): Observable<any> {
     // return this.webServiceMode(placeId);
     const request = {placeId: placeId};
-    const prom = new Promise((resolve, reject) => {
-      this.jsPlacesService.getDetails(request, (result) => {
-        resolve(result);
+    const prom = this.jsPlacesService().then( svc => {
+      return new Promise((resolve, reject) => {
+        svc.getDetails(request, (result) => {
+          const lat = result.geometry.location.lat();
+          const lng = result.geometry.location.lng();
+          result.geometry.location.lat = lat;
+          result.geometry.location.lng = lng;
+          resolve(result);
+        });
       });
     });
     return Observable.fromPromise(prom);
