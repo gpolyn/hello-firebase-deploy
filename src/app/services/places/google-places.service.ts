@@ -41,7 +41,8 @@ export class GooglePlacesService {
   }
 
   getPlaceData(placeId: string): Observable<any> {
-    // return this.webServiceMode(placeId);
+    return this.webServiceMode(placeId);
+    /*
     const request = {placeId: placeId};
     const prom = this.jsPlacesService().then( svc => {
       return new Promise((resolve, reject) => {
@@ -55,6 +56,7 @@ export class GooglePlacesService {
       });
     });
     return Observable.fromPromise(prom);
+    */
   }
 
   private webServiceMode(placeId: string): Observable<any> {
