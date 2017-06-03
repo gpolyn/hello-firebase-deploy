@@ -1,4 +1,5 @@
-<md-card class="box-container" fxLayout="column" >
+<!-- <md-card class="box-container" fxLayout="column"  fxFlex> -->
+<md-card fxFlex>
   <swiper [runInsideAngular]="true" (indexChange)="onIndexChange($event)" overlay-controls [config]="config" fxFlexFill>
     <div *ngFor="let slide of barChartData" class="swiper-slide" fxLayout="column" fxFlexFill>
     <!-- <div class="horizontal-container" style="background-color: blue" fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="stretch" fxFlex> -->

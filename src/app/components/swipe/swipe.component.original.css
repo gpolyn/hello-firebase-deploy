@@ -11,8 +11,8 @@
 
 .box-container {
   box-sizing: border-box;
-  width: 800px;
-  height: 300px;
+  /* width: 800px; */
+  /* height: 300px; */
   max-width: 100%;
   max-height: 90%;
   /*
